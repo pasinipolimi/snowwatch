@@ -1,0 +1,42 @@
+<html>
+
+<body>
+	<script src="libs/jquery.min.js"></script>
+	<script>
+	
+	var userID=15;
+	
+	    $.ajax( {
+	      
+	        url: "http://localhost:8080/community/UserActivityCreditWebServiceREST/GetUserActions/getActions?user_id="+userID,
+	        //dataType: 'jsonp',
+	        
+	    })
+	    .then ( function(){
+	    	debugger;
+	        if(arguments[0].status=="OK"){
+	        	
+	            if(arguments[0].result[0]){
+	                photo=arguments[0].result[0];
+	                callback( photo );
+	            } else {
+	                $('.swcontainer').html("<h4>Photo not exists</h4>");
+	                console.log("No photo for the specified id" );
+	            }
+	        } else{
+	            //TODO: brutto che prima carica la pagina poi fa nullo
+	            $('.swcontainer').html("<h4>Photo not exists</h4>");
+	            console.log("Error reading photo detail: " + arguments[0].error);
+	        }
+	    })
+	    .fail(function(){
+	        
+	        console.log("Error reading photo detail: " + arguments);
+	    });
+	
+	
+</script>
+</body>
+
+
+</html>

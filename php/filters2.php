@@ -1,8 +1,7 @@
 
 <div class="well filters">
     <h2>Filters</h2>
-
-    
+    <input type="hidden" id="swp_user_id" value="<?php if(isset($_SESSION['swp_user_id'])){echo $_SESSION['swp_user_id'];}?>"/>
     <div class="row row-centered" >
 
             <div class="col-md-6 col-padd" >
@@ -25,7 +24,8 @@
             <div class="col-md-6 col-padd">
                 <div class="row"><h4><span class="label label-default ">Author</span></h4></div>
                 <div class="row inforow-less">
-                    <input id="switch-onText" type="checkbox" checked="" data-label-width="30" data-handle-width="30" data-size="mini" data-on-text="All" data-off-text="Mine" name="author-checkbox">
+                    <input id="switch-onText" type="checkbox" checked="" data-label-width="30" data-handle-width="30" data-size="mini" data-on-text="All" data-off-text="Mine" name="author-checkbox"
+                        <?php if ($login->isUserLoggedIn() == false) {echo "readonly";}?>>
                 </div>
             </div>
     </div>

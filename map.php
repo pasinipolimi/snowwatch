@@ -1,13 +1,16 @@
+<?php session_start(); 
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0"); // Proxies.
+?>
 <html lang="${LanguageISOCtxParam}">
 	<head>
 		<title>World Map</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    	<meta charset="utf-8">
+    <meta charset="utf-8">
 		<meta name="description" content="">
-    	<meta name="author" content="">
-    
-
+    <meta name="author" content="">
     	
   <?php include 'php/dependencies/commonsCss.php'; ?>
 	<?php include 'php/dependencies/filtersCss.php'; ?>

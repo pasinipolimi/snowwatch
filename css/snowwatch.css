@@ -91,5 +91,24 @@ body {
     opacity: 0.7;
 }
 
+#rating_wrapper { 
+  display: inline-block; 
+  overflow: hidden; 
+  position: relative; 
+  float:left;
+  margin-right: 10px;
+  white-space: nowrap;
+}
 
-
+.glyphicon.glyphicon-star-empty {
+  opacity: .5;
+}
+.full_stars {
+  display: inline-block; 
+  white-space: nowrap; 
+  overflow: hidden;
+}
+.empty_stars {
+  position: absolute; 
+  left: 0px;
+}

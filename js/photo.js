@@ -11,10 +11,10 @@ $(function(){
         fillPhoto(photo);
     });
 
-    $('#postCommentBtn').click( function(event){
+/*    $('#postCommentBtn').click( function(event){
         postComment(event);
     });
-
+*/
     $('.rating').click( function(){
       var star= parseInt($(event.target).prop("id"));
       $('#ratinginput').attr('value', star);
@@ -26,7 +26,7 @@ $(function(){
       };
     })
 
-    $(window).resize(function(){
+    $(window).resize(function(photoDetails){
         
             drawPeaks(photoDetails);    
         
@@ -36,14 +36,11 @@ $(function(){
 
 });
 
+/*
 function postComment(event){
     var rating;
-    if( !$('#ratinginput').attr('value')){
-        rating=0;
-    } else {
-        rating=  parseInt($('#ratinginput').attr('value'));
-    }
-
+    
+    rating=  parseInt($('#ratinginput').attr('value'));
 
     var html='<div class="row"><div class="col-md-12">';
     for (var i = 1; i <= rating; i++) {
@@ -63,7 +60,7 @@ function postComment(event){
     };
 
 }
-
+*/
 function fillPhoto(photoDetails) {
 	$('#imageid').attr('src', retrieveUrl(photoDetails, 3));
 	enableCollapse();
@@ -259,7 +256,10 @@ function updateCoords(photoId, lat, lng){
 
 function drawPeaks (photoDetails){
     $('#peaks-container').empty();
-    var numPeaks = photoDetails.auxAlignmentPeaks.length;
+    var numPeaks = 0;
+    if (photoDetails.auxAlignmentPeaks!= undefined){
+        numPeaks= photoDetails.auxAlignmentPeaks.length;
+    }
     var startImageX = $("#imageid").position().left;
     var startImageY = $("#imageid").position().top;
     var imageWidth = $("#imageid").width();

@@ -299,7 +299,8 @@ function computeFilterString(){
   
   
   if(! $('#switch-onText').bootstrapSwitch('state')){
-   filters+="userIds[]=SWP2&";   
+   var userId= $("#swp_user_id").val();
+   filters+="userIds[]="+userId+"&";   
   }
 
   if($('#sliderAltDiv').hasClass('in')){

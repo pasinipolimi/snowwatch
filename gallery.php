@@ -1,3 +1,8 @@
+<?php session_start(); 
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0"); // Proxies.
+?>
 <html lang="en">
 <head>
     <!--[if IE]>
@@ -7,9 +12,6 @@
     <title>Snowwatch Image Gallery</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-    
-    
   
     <?php include 'php/dependencies/commonsCss.php'; ?>
     <?php include 'php/dependencies/filtersCss.php'; ?>

@@ -1,4 +1,15 @@
+<?php 
+  session_start(); 
+  header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+  header("Pragma: no-cache"); // HTTP 1.0.
+  header("Expires: 0"); // Proxies.
+  require_once("php/classes/Login.php");
 
+  $login = new Login();
+  if ($login->isUserLoggedIn() == false) {
+    header( 'Location: home.php' ) ;  
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,8 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
-    <meta name="author" content="">
-    
+    <meta name="author" content="">    
 
     <title>SnowWatch Portal</title>
 
@@ -35,6 +45,7 @@
       <h1>Upload Your Photo</h1>
       <div class="col-xs-6 col-xs-offset-3">
         <form action="" method="POST" enctype="multipart/form-data" id="form1" >
+          <input type="hidden" id="swp_user_id" value="<?php echo $_SESSION['swp_user_id']; ?>" />
           <input id="input-21" type="file" accept="image/*" style="width:60%" name="uploadFile" >
           <script>
             

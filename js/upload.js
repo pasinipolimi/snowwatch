@@ -32,6 +32,7 @@ $(document).ready(function() {
               var files = $fileSelect[0].files;
               var formData = new FormData();
               formData.append('uploadFile', files[0]);
+              var userId= $("#swp_user_id").val();
               var mediaId="SWP"+makeid();
             
               var posting = $.ajax( {
@@ -47,7 +48,7 @@ $(document).ready(function() {
                       console.log(arguments[0].error);
                   } else {
                    var posting = $.ajax( {
-                      url: 'https://cors-anywhere.herokuapp.com/'+url+'addMedia?id='+mediaId+'&userId=SWP2&type=P&source=SWP&mainShotId='+arguments[0].result.id,
+                      url: 'https://cors-anywhere.herokuapp.com/'+url+'addMedia?id='+mediaId+'&userId='+userId+'&type=P&source=SWP&mainShotId='+arguments[0].result.id,
                       
                       data: formData,
                       processData: false,

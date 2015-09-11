@@ -1,3 +1,10 @@
+<?php            
+    // load the login class
+    require_once("php/classes/Login.php");
+
+    // create a login object. when this object is created, it will do all login/logout stuff automatically
+    $login = new Login();
+?>
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -13,25 +20,27 @@
           <ul class="nav navbar-nav"> 
             <li id="mappage"><a href="map.php">Maps</a></li>
             <li id="gallerypage"><a href="gallery.php">Gallery</a></li>
-            <li id="uploadpage"><a href="upload.php">Upload</a></li>
+            <?php if ($login->isUserLoggedIn() == true) {
+              echo "<li id='uploadpage'><a href='upload.php'>Upload</a></li>";
+            } ?>
             <li id="aboutpage"><a href="about.php">About</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
               
               <!--<li><a href="../navbar-static-top/">Static top</a></li>
               <li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
-				<li class="dropdown">
-                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Jon Snow<span class="caret"></span></a>
-                	<ul class="dropdown-menu" role="menu">
-                  		<li><a href="myphotos.html">My Photos</a></li>
-                  		<li><a href="myprofile.html">My Profile</a></li>
-                  <li class="divider"></li>
-                  <!--<li class="dropdown-header">Nav header</li>-->
-                  <li><a href="#">Log Out</a></li>
-                </ul>
-              </li>
-
-            </ul>
+				
+          <?php            
+            if ($login->isUserLoggedIn() == true) {
+                // the user is logged in
+                include("php/logged_in.php");
+            } else {
+                // the user is not logged in
+                include("php/not_logged_in.php");
+            }
+          ?>
+          
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
 </nav>

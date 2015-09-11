@@ -1,4 +1,38 @@
+<?php 
+    session_start();
+    header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    header("Pragma: no-cache"); // HTTP 1.0.
+    header("Expires: 0"); // Proxies.
+    require_once("php/classes/Review.php");
+    require_once("php/classes/Login.php");
+    $photoId = $_GET["photoId"];
+    if(isset($_SESSION['user_id'])){
+        $userId = $_SESSION["user_id"];
+    }    
+    $review = new Review();
+    $averageRating = $review->getAverageRating($photoId);
+    $reviewsList = $review->getList($photoId);
+    
+    $login = new Login();
+    $availableComments=false;
+    if ($login->isUserLoggedIn() == true){
+        $existReview = $review->existsReview($photoId,$userId);
+        if ($existReview == true){
+            $unavailableMessage="You have already written a Review for this picture.";
+        }
+        else{
+            $availableComments=true;
+        }
+    }
+    else{
+        $unavailableMessage="Log in to write a Review for this picture.";
+    }
 
+    $ratingClass="";
+    if ($availableComments == true) {
+        $ratingClass="rating";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,8 +41,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
-    <meta name="author" content="">
-    
+    <meta name="author" content="">    
 
     <title>SnowWatch Portal - Photo Detail</title>
 
@@ -33,8 +66,6 @@
   <body>
 
     <?php include 'php/navbar.php'; ?>
-
-    
     
     <div class="container swcontainerleft">
       
@@ -58,14 +89,24 @@
                 <hr>
                 <div class="row">
                     <div class="ratings col-md-8">
-                      <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        4.0 stars
-                      </p>
+                        <div id="rating_wrapper">
+                            <!-- inline width below is rating out of 100 -->
+                            <span class="full_stars" style="width: <?php echo $averageRating*100/5?>%;">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </span>
+                            <span class="empty_stars" >
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            </span>
+                        </div>
+                        <span><?php echo $averageRating; ?> stars</span>
                     </div>
                     <!--<div  class="well col-md-4 col-md-offset-3">
                      <a class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
@@ -78,62 +119,38 @@
                 <!-- ******************************* REVIEW E COMMENTI ******************************* -->
                 <div class="well" >
                     <div class="row">
-                        <div class="col-md-9">
-                            <div class="ratings col" id="ratinginput">
-                              <p>
-                                <span class="glyphicon glyphicon-star-empty rating" id ="1"></span>
-                                <span class="glyphicon glyphicon-star-empty rating" id ="2"></span>
-                                <span class="glyphicon glyphicon-star-empty rating" id ="3"></span>
-                                <span class="glyphicon glyphicon-star-empty rating" id ="4"></span>
-                                <span class="glyphicon glyphicon-star-empty rating" id ="5"></span>
-                              </p>
+                        <form method="post" action="add_review.php" name="addReview">
+                            <input type="hidden" name="photo_id" value="<?php echo $_GET["photoId"]?>"/>
+                            <div class="col-md-9">
+                                <div class="ratings col">
+                                    <input type="hidden" id="ratinginput" name="rating" value="0" />
+                                    <p>
+                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="1"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="2"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="3"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="4"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="5"></span>
+                                    </p>
+                                </div>
+                                <textarea class="form-control" rows="3" id="commentinput" name="comment" 
+                                <?php if ($availableComments == false) { echo "disabled";}?>><?php if ($availableComments == false){echo $unavailableMessage;}?></textarea>
                             </div>
-                            <textarea class="form-control" rows="3" id="commentinput"></textarea>
-                        </div>
-                        <div class="text-right col-md-3 ">
-                            <a class="btn btn-success" id="postCommentBtn">Leave a Review</a>
-                        </div>
+
+                            <div class="text-right col-md-3 ">
+                                <input class="btn btn-success"
+                                 type="submit"  name="register" value="Leave a Review" id="postCommentBtn" 
+                                    <?php if ($availableComments == false) { echo "disabled";}?>/>
+                            </div>
+                        </form>
                     </div>
                     <hr>
+
                     <div id="commentsWell">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <b> Samwell Tarly</b> 
-                            <span class="pull-right">10 days ago</span>
-                            <p>This photo is awsome!</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <b> Ygritte</b> 
-                            <span class="pull-right">12 days ago</span>
-                            <p>You know nothing, JonSnow!</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <b> Ramsay Bolton</b> 
-                            <span class="pull-right">15 days ago</span>
-                            <p>I've seen some better than this...</p>
-                        </div>
-                    </div>
+                    <?php
+                        foreach ($reviewsList as $entry) {
+                            include 'php/review_entry.php';
+                        }                
+                    ?>
                     </div>
                 </div>     
             </div> <!-- fine colonna foto-->
@@ -172,7 +189,9 @@
                                 <div class="row inforow">
                                     <div class="col-md-3">
 
-                                        <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#coordsModal" id="latlngInputBtn">
+                                        <button type="button" class="btn btn-sm
+                                        <?php if ($login->isUserLoggedIn() == false) { echo "disabled";}?>"
+                                        data-toggle="modal" data-target="#coordsModal" id="latlngInputBtn">
                                           Insert Coordinates
                                         </button>
                                     </div>                
@@ -185,7 +204,8 @@
                         </div>
                         <div class="row inforow row-centered">
                             <div class="col-centered">
-                                <span ><a class="btn btn-success btn-sm" id="viewRender">Alignment</a></span>
+                                <span ><a class="btn btn-success btn-sm <?php if ($login->isUserLoggedIn() == false){ echo "disabled"; }?>"
+                                    id="viewRender">Alignment</a></span>
                             </div>        
                             <div class="col-centered">
                                 <span ><a class="btn btn-success btn-sm disabled" id="validateBtn">Validate</a></span>
@@ -236,7 +256,7 @@
     </div>
 
 
-
+<?php if ($login->isUserLoggedIn() == true) {?>
     <div class="modal fade" id="coordsModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -269,7 +289,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-      
+<?php }?>
 
     </div><!-- /.container -->
     <?php include 'php/dependencies/commonsJS.php'; ?>

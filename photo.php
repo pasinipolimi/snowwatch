@@ -1,36 +1,30 @@
 <?php 
-    session_start();
-    header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-    header("Pragma: no-cache"); // HTTP 1.0.
-    header("Expires: 0"); // Proxies.
-    require_once("php/classes/Review.php");
-    require_once("php/classes/Login.php");
-    $photoId = $_GET["photoId"];
-    if(isset($_SESSION['user_id'])){
-        $userId = $_SESSION["user_id"];
-    }    
-    $review = new Review();
-    $averageRating = $review->getAverageRating($photoId);
-    $reviewsList = $review->getList($photoId);
-    
-    $login = new Login();
-    $availableComments=false;
-    if ($login->isUserLoggedIn() == true){
-        $existReview = $review->existsReview($photoId,$userId);
-        if ($existReview == true){
-            $unavailableMessage="You have already written a Review for this picture.";
+    require_once 'php/header.php';
+    require_once("php/classes/Review.class.php"); 
+
+    if (isset($_GET["photoId"])){
+        $photoId = $_GET["photoId"];       
+        $review = new Review();
+        $averageRating = $review->getAverageRating($photoId);
+        $reviewsList = $review->getList($photoId);
+        
+        $availableComments=false;
+        if ($login->isUserLoggedIn() == true){
+            $userId = $_SESSION["user_id"]; 
+            $existReview = $review->exists($photoId,$userId);
+            if ($existReview == true){
+                $unavailableMessage = "REVIEW_ALREADY_WRITTEN";
+            }
+            else{
+                $availableComments=true;
+            }
         }
         else{
-            $availableComments=true;
-        }
+            $unavailableMessage= "REVIEW_LOG_IN";
+        }    
     }
     else{
-        $unavailableMessage="Log in to write a Review for this picture.";
-    }
-
-    $ratingClass="";
-    if ($availableComments == true) {
-        $ratingClass="rating";
+        header( 'Location: home.php' ) ; 
     }
 ?>
 <!DOCTYPE html>
@@ -43,7 +37,7 @@
     <meta name="description" content="">
     <meta name="author" content="">    
 
-    <title>SnowWatch Portal - Photo Detail</title>
+    <title><?php echo $i18n->translate("PHOTO_DETAIL");?></title>
 
     
     <?php include 'php/dependencies/commonsCss.php'; ?>
@@ -106,7 +100,7 @@
                                 <span class="glyphicon glyphicon-star-empty"></span>
                             </span>
                         </div>
-                        <span><?php echo $averageRating; ?> stars</span>
+                        <span><?php echo $averageRating." ".$i18n->translate("STARS");?></span>
                     </div>
                     <!--<div  class="well col-md-4 col-md-offset-3">
                      <a class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
@@ -125,15 +119,15 @@
                                 <div class="ratings col">
                                     <input type="hidden" id="ratinginput" name="rating" value="0" />
                                     <p>
-                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="1"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="2"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="3"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="4"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php echo $ratingClass; ?>" id ="5"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="1"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="2"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="3"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="4"></span>
+                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="5"></span>
                                     </p>
                                 </div>
                                 <textarea class="form-control" rows="3" id="commentinput" name="comment" 
-                                <?php if ($availableComments == false) { echo "disabled";}?>><?php if ($availableComments == false){echo $unavailableMessage;}?></textarea>
+                                <?php if ($availableComments == false) { echo "disabled";}?>><?php if ($availableComments == false){echo $i18n->translate($unavailableMessage);}?></textarea>
                             </div>
 
                             <div class="text-right col-md-3 ">
@@ -163,7 +157,7 @@
             <div class="col-md-4">
                 <div class="well">
                     <h4>Photo Info 
-                    <button class="DetailsBtn SeeMore btn btn-default btn-xs pull-right" data-toggle="collapse" href="#photoinfo">See More</button></h4>
+                    <button class="DetailsBtn SeeMore btn btn-default btn-xs pull-right" data-toggle="collapse" href="#photoinfo"><?php echo $i18n->translate("SEE_MORE");?></button></h4>
                     <div id= "photoinfo" class="collapse myinfobox centered">
                         <div class="row" id="date"></div>
                         <div class="row inforow-less-top" id="author"></div>
@@ -175,7 +169,7 @@
 
                 <div class="well">
                     <h4>SnowWatch
-                        <button class="DetailsBtn btn btn-default btn-xs pull-right" data-toggle="collapse" href="#swinfo">See Less</button>
+                        <button class="DetailsBtn btn btn-default btn-xs pull-right" data-toggle="collapse" href="#swinfo"><?php echo $i18n->translate("SEE_LESS");?></button>
                     </h4>
                     <div id="swinfo"  class="collapse in myinfobox" >
                         <div class="row" >
@@ -192,7 +186,7 @@
                                         <button type="button" class="btn btn-sm
                                         <?php if ($login->isUserLoggedIn() == false) { echo "disabled";}?>"
                                         data-toggle="modal" data-target="#coordsModal" id="latlngInputBtn">
-                                          Insert Coordinates
+                                          <?php echo $i18n->translate("INSERT_COORDINATES");?>
                                         </button>
                                     </div>                
                                 </div>
@@ -205,16 +199,16 @@
                         <div class="row inforow row-centered">
                             <div class="col-centered">
                                 <span ><a class="btn btn-success btn-sm <?php if ($login->isUserLoggedIn() == false){ echo "disabled"; }?>"
-                                    id="viewRender">Alignment</a></span>
+                                    id="viewRender"><?php echo $i18n->translate("ALIGNMENT");?></a></span>
                             </div>        
                             <div class="col-centered">
-                                <span ><a class="btn btn-success btn-sm disabled" id="validateBtn">Validate</a></span>
+                                <span ><a class="btn btn-success btn-sm disabled" id="validateBtn"><?php echo $i18n->translate("VALIDATE");?></a></span>
                             </div>        
                         </div>
                         <div class="row inforow row-centered">
                             <div class="col-md-1 col-centered" id="peaksdiv">
                                 <div class="row">
-                                    Show Peaks:
+                                    <?php echo $i18n->translate("SHOW_PEAKS");?>:
                                 </div>
                                 <div class="row">
                                     <input id="switch-peaks" type="checkbox"  disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
@@ -222,7 +216,7 @@
                             </div>
                             <div class="col-md-1 col-centered" id="snowmaskdiv">
                                 <div class="row">
-                                    Snow Mask:
+                                    <?php echo $i18n->translate("SNOW_MASK");?>:
                                 </div>
                                 <div class="row">
                                     <input id="switch-snow" type="checkbox" disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
@@ -262,7 +256,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Add coordinates</h4>
+            <h4 class="modal-title"><?php echo $i18n->translate("ADD_COORDINATES");?></h4>
           </div>
           <div class="modal-body">
                 <div class="row">
@@ -283,8 +277,8 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveCoordsBtn">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $i18n->translate("CLOSE");?></button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveCoordsBtn"><?php echo $i18n->translate("SAVE_CHANGES");?></button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->

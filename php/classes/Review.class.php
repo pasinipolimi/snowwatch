@@ -1,6 +1,6 @@
 <?php      
 // include class to get the database connection
-require_once("php/classes/Database.php");
+require_once("php/classes/Database.class.php");
 
 /**
  * Class review
@@ -10,6 +10,9 @@ class Review{
     public function getList($photoId){
         $db = Database::getInstance();
         $db_connection = $db->getConnection();
+
+        $photoId = $db_connection->real_escape_string(strip_tags($photoId, ENT_QUOTES));
+
         $sql = "SELECT *
                 FROM reviews
                 INNER JOIN users on (reviews.user_id= users.user_id)
@@ -19,9 +22,14 @@ class Review{
     }
 
     public function saveNew($photoId, $comment, $rating, $userId){
-        $result=false;
         $db = Database::getInstance();
         $db_connection = $db->getConnection();
+
+        $photoId = $db_connection->real_escape_string(strip_tags($photoId, ENT_QUOTES));
+        $comment = $db_connection->real_escape_string(strip_tags($comment, ENT_QUOTES));
+        $rating = $db_connection->real_escape_string(strip_tags($rating, ENT_QUOTES));
+        $userId = $db_connection->real_escape_string(strip_tags($userId, ENT_QUOTES));
+
         $sql = "INSERT INTO reviews (photo_id, review_comment, review_rating, user_id)
                 VALUES ('" . $photoId . "', '" . $comment . "', '" . $rating . "', '" . $userId ."');";
 
@@ -33,6 +41,9 @@ class Review{
     public function getAverageRating($photoId){
         $db = Database::getInstance();
         $db_connection = $db->getConnection();
+
+        $photoId = $db_connection->real_escape_string(strip_tags($photoId, ENT_QUOTES));
+
         $sql = "SELECT ROUND(AVG(review_rating),1)
                 FROM reviews 
                 WHERE photo_id='" . $photoId . "';";
@@ -45,9 +56,13 @@ class Review{
         return $average;
     }
 
-    public function existsReview($photoId, $userId){
+    public function exists($photoId, $userId){
         $db = Database::getInstance();
         $db_connection = $db->getConnection();
+
+        $photoId = $db_connection->real_escape_string(strip_tags($photoId, ENT_QUOTES));
+        $userId = $db_connection->real_escape_string(strip_tags($userId, ENT_QUOTES));
+
         $sql = "SELECT COUNT(*)
                 FROM reviews 
                 WHERE photo_id='" . $photoId . "' and user_id='" . $userId . "';";

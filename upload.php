@@ -1,11 +1,5 @@
 <?php 
-  session_start(); 
-  header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-  header("Pragma: no-cache"); // HTTP 1.0.
-  header("Expires: 0"); // Proxies.
-  require_once("php/classes/Login.php");
-
-  $login = new Login();
+  require_once 'php/header.php'; 
   if ($login->isUserLoggedIn() == false) {
     header( 'Location: home.php' ) ;  
   }
@@ -42,7 +36,7 @@
     <div class="container swcontainer">
 
       
-      <h1>Upload Your Photo</h1>
+      <h1><?php echo $i18n->translate("UPLOAD_YOUR_PHOTO");?></h1>
       <div class="col-xs-6 col-xs-offset-3">
         <form action="" method="POST" enctype="multipart/form-data" id="form1" >
           <input type="hidden" id="swp_user_id" value="<?php echo $_SESSION['swp_user_id']; ?>" />

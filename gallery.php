@@ -1,15 +1,11 @@
-<?php session_start(); 
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-header("Pragma: no-cache"); // HTTP 1.0.
-header("Expires: 0"); // Proxies.
-?>
+<?php require_once 'php/header.php'; ?>
 <html lang="en">
 <head>
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
     <meta charset="utf-8">
-    <title>Snowwatch Image Gallery</title>
+    <title><?php echo $i18n->translate("IMAGE_GALLERY");?></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   

@@ -1,14 +1,8 @@
 <?php 
-  session_start();
-  header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-  header("Pragma: no-cache"); // HTTP 1.0.
-  header("Expires: 0"); // Proxies.
-  require_once("php/classes/Login.php");
-
-  $login = new Login();
-  if ($login->isUserLoggedIn() == false) {
-    header( 'Location: home.php' ) ;  
-  }
+    require_once 'php/header.php';
+    if ($login->isUserLoggedIn() == false) {
+        header( 'Location: home.php' ) ;  
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">    
 
-    <title>SnowWatch Portal - Photo Details</title>
+    <title><?php echo $i18n->translate("PHOTO_DETAIL");?></title>
 
 
     <?php include 'php/dependencies/commonsCss.php'; ?>
@@ -82,10 +76,11 @@
                 <div class="container_12">
                     <div class="grid_12 alpha omega agrd_24">
                         <div class="alert alert-dismissable fade in alert-success ">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            The image has been automatically aligned, in order to provide the best solution.
+                                                        The image has been automatically aligned, in order to provide the best solution.
                             Decide wheather you are satisfied with this alignment or not.
                             In case you are not satisfied manually align the image, following the instructions below.
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
                         </div>
                     </div>
                     <div class="clear"></div>

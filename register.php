@@ -1,23 +1,10 @@
 <?php    
-    session_start(); 
-    header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-    header("Pragma: no-cache"); // HTTP 1.0.
-    header("Expires: 0"); // Proxies.
-    // load the login class
-    require_once("php/classes/Login.php");
-
-    // create a login object. when this object is created, it will do all login/logout stuff automatically
-    $login = new Login();
+    require_once 'php/header.php'; 
+    require_once("php/classes/Registration.class.php");
 
     if ($login->isUserLoggedIn() == true) {
-        // the user is logged in
 		header( 'Location: home.php' ) ;  
     } else {
-        // the user is not logged in
-        // load the registration class
-		require_once("php/classes/Registration.php");
-		// create the registration object. when this object is created, it will do all registration stuff automatically
-		// so this single line handles the entire registration process.
 		$registration = new Registration();
     }
 ?>
@@ -52,18 +39,18 @@
     <div class="container swcontainer">
 
       
-        <h1>Register</h1>
+        <h1><?php echo $i18n->translate("REGISTER");?></h1>
         <?php
             // show potential errors / feedback (from registration object)
             if (isset($registration)) {
                 if ($registration->errors) {
                     foreach ($registration->errors as $error) {
-                        echo $error;
+                        echo $i18n->translate($error);
                     }
                 }
                 if ($registration->messages) {
                     foreach ($registration->messages as $message) {
-                        echo $message;
+                        echo $i18n->translate($message);
                     }
                 }
             }
@@ -73,19 +60,19 @@
         <form method="post" action="register.php" name="registerform">
 
             <!-- the user name input field uses a HTML5 pattern check -->
-            <label for="login_input_username">Username (only letters and numbers, 2 to 64 characters)</label>
+            <label for="login_input_username"><?php echo $i18n->translate("REGISTRATION_USERNAME");?></label>
             <input id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
 
             <!-- the email input field uses a HTML5 email type check -->
-            <label for="login_input_email">User's email</label>
+            <label for="login_input_email"><?php echo $i18n->translate("REGISTRATION_EMAIL");?></label>
             <input id="login_input_email" class="login_input" type="email" name="user_email" required />
 
-            <label for="login_input_password_new">Password (min. 6 characters)</label>
+            <label for="login_input_password_new"><?php echo $i18n->translate("REGISTRATION_PASSWORD");?></label>
             <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
 
-            <label for="login_input_password_repeat">Repeat password</label>
+            <label for="login_input_password_repeat"><?php echo $i18n->translate("REGISTRATION_REPEAT_PASSWORD");?></label>
             <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
-            <input type="submit"  name="register" value="Register" />
+            <input type="submit"  name="register" value="<?php echo $i18n->translate("REGISTER");?>" />
 
         </form>      
 

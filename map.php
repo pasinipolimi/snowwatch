@@ -1,8 +1,4 @@
-<?php session_start(); 
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-header("Pragma: no-cache"); // HTTP 1.0.
-header("Expires: 0"); // Proxies.
-?>
+<?php require_once 'php/header.php'; ?>
 <html lang="${LanguageISOCtxParam}">
 	<head>
 		<title>World Map</title>
@@ -80,7 +76,7 @@ header("Expires: 0"); // Proxies.
       <div class="modal-dialog" width="75%">
         <div class="modal-content">
           <div class="modal-body text-center">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>  
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $i18n->translate("CLOSE");?></span></button>  
             <div class="row">
               <img src="" id="imagepreview" style="width: 500px;" >
             </div>

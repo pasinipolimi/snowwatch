@@ -44,7 +44,7 @@ $(document).ready(function() {
               } )
               .then( function( ) {
                   if(arguments[0].status!="OK"){
-                      alert("Unable to upload the photo, try again later");
+                      alert(translate("UPLOAD_UNABLE"));
                       console.log(arguments[0].error);
                   } else {
                    var posting = $.ajax( {
@@ -57,20 +57,20 @@ $(document).ready(function() {
                   })
                   .then ( function(){
                        if(arguments[0].status!="OK"){
-                          alert("Unable to upload the photo, try again later");
+                        alert(translate("UPLOAD_UNABLE"));
                           console.log(arguments[0].error);
                         } else {
                              //window.location='photo.php?args='+encodeURIComponent(JSON.stringify(arguments[0].result));
                              window.location='photo.php?photoId='+mediaId;
                         }
                   }).fail( function(){
-                      alert("Unable to upload the photo, try again later");
+                      alert(translate("UPLOAD_UNABLE"));
                       console.log(arguments);
                   })  
                   }       
               } )
               .fail( function() {
-                  alert("Unable to upload the photo, try again later");
+                  alert(translate("UPLOAD_UNABLE"));
                   console.log(arguments);
               });
     } );

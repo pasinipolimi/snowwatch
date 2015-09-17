@@ -1,13 +1,11 @@
 <?php
+require_once("php/classes/User.class.php");
 // include password hashing functions
 require_once("libs/password_compatibility_library.php");
 
-// include class to get the database connection
-require_once("php/classes/Database.php");
-
 /**
  * Class login
- * handles the user's login and logout processå
+ * handles the user's login and logout process
  */
 class Login
 {
@@ -48,19 +46,10 @@ class Login
             $this->errors[] = "Password field was empty.";
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
 
-            // create a database connection, using the constants from config/db.php
-            $db = Database::getInstance();
-            $db_connection = $db->getConnection();
+            $user_name = $_POST['user_name'];
 
-            // escape the POST stuff
-            $user_name = $db_connection->real_escape_string($_POST['user_name']);
-
-            // database query, getting all the info of the selected user (allows login via email address in the
-            // username field)
-            $sql = "SELECT user_id, swp_user_id, user_name, user_email, user_password_hash
-                    FROM users
-                    WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
-            $result_of_login_check = $db_connection->query($sql);
+            $user = new User();
+            $result_of_login_check = $user->search($user_name, $user_name);
 
             // if this user exists
             if ($result_of_login_check->num_rows == 1) {

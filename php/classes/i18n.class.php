@@ -144,8 +144,8 @@ class i18n {
         return $result;
     }
 
-    public function getJsonLang($side){
-        return json_encode($this->langFile[$side]);        
+    public function getJsonClientLang(){
+        return json_encode($this->langFile["client"]);        
     }
 
 }

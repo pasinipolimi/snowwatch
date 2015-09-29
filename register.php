@@ -1,11 +1,13 @@
 <?php    
     require_once 'php/header.php'; 
     require_once("php/classes/Registration.class.php");
-
     if ($login->isUserLoggedIn() == true) {
 		header( 'Location: home.php' ) ;  
     } else {
 		$registration = new Registration();
+        if ($registration->successful == true){
+            header( 'Location: home.php' );
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -46,11 +48,6 @@
                 if ($registration->errors) {
                     foreach ($registration->errors as $error) {
                         echo $i18n->translate($error);
-                    }
-                }
-                if ($registration->messages) {
-                    foreach ($registration->messages as $message) {
-                        echo $i18n->translate($message);
                     }
                 }
             }

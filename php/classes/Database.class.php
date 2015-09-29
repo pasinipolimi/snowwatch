@@ -13,6 +13,7 @@ class Database {
 	private $_username = DB_USER;
 	private $_password = DB_PASS;
 	private $_database = DB_NAME;
+	private $_port = DB_PORT;
 
 	/*
 	Get an instance of the Database
@@ -26,7 +27,7 @@ class Database {
 	}
 	// Constructor
 	private function __construct() {
-		$this->_connection = new mysqli($this->_host, $this->_username, $this->_password, $this->_database);
+		$this->_connection = new mysqli($this->_host.':'.$this->_port, $this->_username, $this->_password, $this->_database);
 	}
 	// Magic method clone is empty to prevent duplication of connection
 	private function __clone() { }

@@ -1,5 +1,6 @@
 <?php
 require_once("php/classes/User.class.php");
+require_once("php/classes/Login.class.php");
 
 /**
  * Class registration
@@ -11,10 +12,11 @@ class Registration
      * @var array $errors Collection of error messages
      */
     public $errors = array();
+
     /**
-     * @var array $messages Collection of success / neutral messages
+     * @var boolean $successful Result of registration
      */
-    public $messages = array();
+    public $successful = false;
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,
@@ -38,7 +40,7 @@ class Registration
         } elseif (empty($_POST['user_password_new']) || empty($_POST['user_password_repeat'])) {
             $this->errors[] = "Empty Password";
         } elseif ($_POST['user_password_new'] !== $_POST['user_password_repeat']) {
-            $this->errors[] = "Password and password repeat are not the same";
+            $this->errors[] = "REGISTRATION_DIFFERENT_PASSWORDS";
         } elseif (strlen($_POST['user_password_new']) < 6) {
             $this->errors[] = "Password has a minimum length of 6 characters";
         } elseif (strlen($_POST['user_name']) > 64 || strlen($_POST['user_name']) < 2) {
@@ -65,7 +67,9 @@ class Registration
             } else {                
                 $query_new_user_insert = $user->register($user_name, $user_password, $user_email);
                 if ($query_new_user_insert) {
-                    $this->messages[] = "REGISTRATION_SUCCESSFUL";
+                    $this->successful = true;
+                    $login = new Login();
+                    $login->doLogin($user_name,$user_password);
                 } else {
                     $this->errors[] = "REGISTRATION_FAILURE";
                 }
@@ -73,3 +77,4 @@ class Registration
         }
     }
 }
+?>

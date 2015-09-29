@@ -7,5 +7,4 @@
   require_once("php/classes/Login.class.php");
   $i18n = new i18n();
   $login = new Login();
-  require_once("php/client_translator.php");
 ?>

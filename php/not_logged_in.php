@@ -1,4 +1,6 @@
 <?php
+require_once("php/functions.php");
+
 // show potential errors / feedback (from login object)
 if (isset($login)) {
     if ($login->errors) {
@@ -10,7 +12,7 @@ if (isset($login)) {
 ?>
 
 <!-- login form box -->
-<form method="post" action="<?php echo 'http://'. $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']; ?>" name="loginform">
+<form method="post" action="<?php echo fullPageUrl() ?>" name="loginform">
 
     <label for="login_input_username" style="color: #9d9d9d;"><?php echo $i18n->translate("USERNAME");?></label>
     <input id="login_input_username" class="login_input" type="text" name="user_name" required />

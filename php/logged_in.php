@@ -5,6 +5,6 @@
         <li><a href="myprofile.html">My Profile</a></li>
         <li class="divider"></li>
         <!--<li class="dropdown-header">Nav header</li>-->
-    	<li><a href="home.php?logout">Log Out</a></li>
+    	<li><a href="index.php?logout">Log Out</a></li>
  	</ul>
  </li>

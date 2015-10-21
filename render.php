@@ -1,7 +1,7 @@
 <?php 
     require_once 'php/header.php';
     if ($login->isUserLoggedIn() == false) {
-        header( 'Location: home.php' ) ;  
+        header( 'Location: index.php' ) ;  
     }
 ?>
 <!DOCTYPE html>

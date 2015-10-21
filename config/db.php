@@ -10,7 +10,7 @@
  * DB_PASS: the password of the above user
  */
 define("DB_HOST", "localhost");
-define("DB_NAME", "snow_watch");
-define("DB_USER", "root");
-define("DB_PASS", "root");
+define("DB_NAME", "sw_portal");
+define("DB_USER", "webuser");
+define("DB_PASS", "polimiwebuser");
 define("DB_PORT", "3306");

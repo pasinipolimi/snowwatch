@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `snow_watch`;
+CREATE DATABASE IF NOT EXISTS `sw_portal`;
 
-USE `snow_watch`;
+USE `sw_portal`;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto incrementing user_id of each user, unique index',
@@ -21,8 +21,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `review_comment` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'review''s comment text',
   `review_rating` tinyint(4) NOT NULL COMMENT 'reviews''s rating stars',
   `user_id` int(11) NOT NULL COMMENT 'user''s id reference',
-  `review_created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'reviews''s createion date'
+  `review_created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'reviews''s createion date',
   PRIMARY KEY (`review_id`),
   KEY `fk_user` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='comment data';
-

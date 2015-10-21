@@ -27,7 +27,7 @@ class Database {
 	}
 	// Constructor
 	private function __construct() {
-		$this->_connection = new mysqli($this->_host.':'.$this->_port, $this->_username, $this->_password, $this->_database);
+		$this->_connection = new mysqli($this->_host, $this->_username, $this->_password, $this->_database, $this->_port);
 	}
 	// Magic method clone is empty to prevent duplication of connection
 	private function __clone() { }

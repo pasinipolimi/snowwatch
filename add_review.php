@@ -3,7 +3,7 @@
     require_once("php/classes/Review.class.php");
     require_once("php/classes/Login.class.php");
 
-    $redirectUrl = "home.php";
+    $redirectUrl = "index.php";
     $login = new Login();
 
     if ($login->isUserLoggedIn() == true) {

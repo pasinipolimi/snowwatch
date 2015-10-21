@@ -2,11 +2,11 @@
     require_once 'php/header.php'; 
     require_once("php/classes/Registration.class.php");
     if ($login->isUserLoggedIn() == true) {
-		header( 'Location: home.php' ) ;  
+		header( 'Location: index.php' ) ;  
     } else {
 		$registration = new Registration();
         if ($registration->successful == true){
-            header( 'Location: home.php' );
+            header( 'Location: index.php' );
         }
     }
 ?>

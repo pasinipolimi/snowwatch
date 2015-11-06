@@ -71,6 +71,12 @@
                 <div id="snow-container"></div>
             </div>
 
+            <div class="collapse" id="collapseInfo">
+                <div class="well">
+                <div id="collapseInfoDiv"></div>
+              </div>
+            </div>
+
             <div class="row">
                 <h2 class="col-xs-9">Reviews</h2>
                 <div class="col-xs-3 sw-stars">
@@ -109,7 +115,7 @@
                     </p>
                 </div>
                 <div class="form-group">
-                    <textarea class="col-xs-12" rows="3" <?php if ($availableComments == false) { echo "disabled style='background-color:lightgray';";}?>></textarea>
+                    <textarea class="col-xs-12" rows="3" id="commentinput" name="comment" <?php if ($availableComments == false) { echo "disabled style='background-color:lightgray';";}?>></textarea>
                 </div>
                 <br>
                 <br>

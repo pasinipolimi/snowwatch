@@ -269,7 +269,7 @@ function downloadGeneralMask(urlMask, ctxName){
 function enableCollapse(imgId){    
     $('#imgs-container').on( 'mouseenter', function (){$('#collapseInfo').show();} );
     $('#imgs-container').on( 'mouseleave', function (){$('#collapseInfo').hide();} );
-    $('#imgs-container').on( 'mousemove', showPxlInfo );
+//    $('#imgs-container').on( 'mousemove', showPxlInfo );
     $('#peaks-container').on( 'mousemove', 'img', showPeakInfo );  
 }
 

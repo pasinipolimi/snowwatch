@@ -1,7 +1,3 @@
-body {
-  padding-top: 50px;
-}
-
 .swcontainerleft {
   padding: 40px 15px;
   text-align: left;
@@ -11,8 +7,6 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
-
-
 
 .label-message {
 	display:block;
@@ -111,4 +105,33 @@ body {
 .empty_stars {
   position: absolute; 
   left: 0px;
+}
+
+#map-canvas {
+  margin-top: -20px;
+}
+
+.control-label{
+  float:left;
+}
+
+.input-xlarge {
+    width: 270px;
+}
+
+.controls {
+    margin-left: 150px;
+}
+
+#login-error{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.login_input{
+  color:black;
+}
+
+.photo-container{
+  padding-top: 40px;
 }

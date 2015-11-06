@@ -25,6 +25,8 @@
 
     
     <?php include 'php/dependencies/commonsCss.php'; ?>
+    <?php include 'php/dependencies/commonsJS.php'; ?>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -35,46 +37,85 @@
 
   <body>
 
-    <?php include 'php/navbar.php'; ?>
+    <?php include 'php/navbar_header.php'; ?>
+    <?php include 'php/navbar_menu_dark.php'; ?>    
     
+    <img class="sw-upload-jumbotron" src="dist/img/background-upload.png">
     
-    <div class="container swcontainer">
-
+    <div class="container sw-upload-content ">
       
-        <h1><?php echo $i18n->translate("REGISTER");?></h1>
-        <?php
-            // show potential errors / feedback (from registration object)
-            if (isset($registration)) {
-                if ($registration->errors) {
-                    foreach ($registration->errors as $error) {
-                        echo $i18n->translate($error);
+        <div class="col-sm-offset-5">
+            <h1>Sign up</h1>
+        </div>
+
+        <div class="col-sm-6 col-sm-offset-4">   
+
+            <form method="post" action="register.php" name="registerform">
+
+                <div class="control-group">
+                  <!-- Username -->
+                  <label class="control-label" for="login_input_username">Username</label>
+                  <div class="controls">
+                    <input id="login_input_username" class="login_input input-xlarge" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required >
+                    <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+                  </div>
+                </div>
+             
+                <div class="control-group">
+                  <!-- E-mail -->
+                  <label class="control-label" for="login_input_email">E-mail</label>
+                  <div class="controls">
+                    <input id="login_input_email" class="login_input input-xlarge" type="email" name="user_email" required />
+                    <p class="help-block">Please provide your E-mail</p>
+                  </div>
+                </div>
+             
+                <div class="control-group">
+                  <!-- Password-->
+                  <label class="control-label" for="login_input_password_new">Password</label>
+                  <div class="controls">
+                    <input id="login_input_password_new" class="login_input  input-xlarge" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
+                    <p class="help-block">Password should be at least 6 characters</p>
+                  </div>
+                </div>
+             
+                <div class="control-group">
+                  <!-- Password -->
+                  <label class="control-label"  for="login_input_password_repeat">Password (Confirm)</label>
+                  <div class="controls">
+                    <input id="login_input_password_repeat" class="login_input  input-xlarge" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
+                    <p class="help-block">Please confirm password</p>
+                  </div>
+                </div>
+             
+               <?php
+                    // show potential errors / feedback (from registration object)
+                    if (isset($registration)) {
+                        if ($registration->errors) {
+                            foreach ($registration->errors as $error) {
+                                // echo"<div class='col-sm-offset-4'>".$i18n->translate($error)."</div>";
+                                echo "<div class='row-centered alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ".$i18n->translate($error)."</div>";
+
+                            }
+                        }
                     }
-                }
-            }
-        ?>
+                ?>
 
-        <!-- register form -->
-        <form method="post" action="register.php" name="registerform">
-
-            <!-- the user name input field uses a HTML5 pattern check -->
-            <label for="login_input_username"><?php echo $i18n->translate("REGISTRATION_USERNAME");?></label>
-            <input id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
-
-            <!-- the email input field uses a HTML5 email type check -->
-            <label for="login_input_email"><?php echo $i18n->translate("REGISTRATION_EMAIL");?></label>
-            <input id="login_input_email" class="login_input" type="email" name="user_email" required />
-
-            <label for="login_input_password_new"><?php echo $i18n->translate("REGISTRATION_PASSWORD");?></label>
-            <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
-
-            <label for="login_input_password_repeat"><?php echo $i18n->translate("REGISTRATION_REPEAT_PASSWORD");?></label>
-            <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
-            <input type="submit"  name="register" value="<?php echo $i18n->translate("REGISTER");?>" />
-
-        </form>      
+                <div class="control-group">
+                  <!-- Button -->
+                  <div class="controls">
+                    <input type="submit" name="register" class="btn btn-sw" value="SIGN UP" />
+                  </div>
+                </div>
+            </form>      
+        </div>
 
     </div><!-- /.container -->
-    <?php include 'php/dependencies/commonsJS.php'; ?>
-    
+    <br>
+    <br>
+    <br>
+    <br>
+    <?php include 'php/footer.php'; ?>
+
   </body>
 </html>

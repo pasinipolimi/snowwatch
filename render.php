@@ -62,9 +62,8 @@
 
   <body>
 
-    <?php 
-      include 'php/navbar.php'; 
-    ?>
+  <?php include 'php/navbar_header.php'; ?>
+  <?php include 'php/navbar_menu_dark.php'; ?>
 
     
 
@@ -146,10 +145,7 @@
 </div>
 </div>
 
-
-
-
-
+    <?php include 'php/footer.php'; ?>
 
 
 
@@ -166,6 +162,5 @@
     <script type="text/javascript" src="libs/deformation.js"></script>
     <script type="text/javascript" src="libs/interpolation.js"></script>  
     <script type="text/javascript" src="libs/point_definer.js"></script>
-    
   </body>
 </html>

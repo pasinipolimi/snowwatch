@@ -11,10 +11,6 @@ $(function(){
         fillPhoto(photo);
     });
 
-/*    $('#postCommentBtn').click( function(event){
-        postComment(event);
-    });
-*/
     $('.rating').click( function(){
       var star= parseInt($(event.target).prop("id"));
       $('#ratinginput').attr('value', star);
@@ -27,47 +23,13 @@ $(function(){
     })
 
     $(window).resize(function(photoDetails){
-        
-            drawPeaks(photoDetails);    
-        
+        drawPeaks(photoDetails);    
     });
-
-
-
 });
 
-/*
-function postComment(event){
-    var rating;
-    
-    rating=  parseInt($('#ratinginput').attr('value'));
-
-    var html='<div class="row"><div class="col-md-12">';
-    for (var i = 1; i <= rating; i++) {
-        html+= ' <span class="glyphicon glyphicon-star"></span>';
-    };
-    for (var i = rating+1; i <= 5; i++) {
-        html+= ' <span class="glyphicon glyphicon-star-empty"></span>';
-    };
-    html+='<b> Jon Snow </b><span class="pull-right">Now</span><p>'+ $('#commentinput').val()+'</p></div></div><hr>';
-
-  
-    $('#commentsWell').prepend(html);
-
-    $('#commentinput').val('');
-    for (var i = 1; i <= 5; i++) {
-          $('#'+i).addClass('glyphicon-star-empty').removeClass('glyphicon-star');
-    };
-
-}
-*/
 function fillPhoto(photoDetails) {
 	$('#imageid').attr('src', retrieveUrl(photoDetails, 3));
 	enableCollapse();
-
-    
-
-
 
 	if(photoDetails.gpsLng && photoDetails.gpsLat){
         updateCoords(photoDetails.id, photoDetails.gpsLat, photoDetails.gpsLng);
@@ -81,7 +43,6 @@ function fillPhoto(photoDetails) {
         $('#latlngInputBtn').removeClass("btn-primary");
         $('#latlngInputBtn').html("Insert Coordinates");
         initializeMap(photoDetails.id);
-
 	}
 
 
@@ -149,9 +110,10 @@ function fillPhoto(photoDetails) {
 			}
 		});
 
-        
-        uploadGallery(8, calcPeaksFilter(photoDetails), "#peakslinks", [photoDetails.id]);
-        $('#samepeaksdiv').show();
+    
+    //Same peaks     
+    //    uploadGallery(8, calcPeaksFilter(photoDetails), "#peakslinks", [photoDetails.id]);
+    //    $('#samepeaksdiv').show();
 
         
         if(photoDetails.auxAlignment.auxFileAbsUrlDepthMask){

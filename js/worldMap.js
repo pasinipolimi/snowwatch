@@ -161,14 +161,8 @@ function createMarker(photo, coordinates)
 
 
 	google.maps.event.addListener(marker, 'click', function() {
-		$('#imagepreview').attr('src', $($(this)[0].content).attr('src_large')); 
-            $('#mediaMoreButton').attr('photoId',$($(this)[0].content).attr('p_id') ); 
-            $('#imagemodal').modal('show'); 
-            $('#mediaMoreButton').click(function(){
-                window.location.href="photo.php?photoId="+$(this).attr('photoId');
-            })
-    	$('#imagemodal').prop('style', '"z-index : 30px;"');
-
+    	var photoId = $($(this)[0].content).attr('p_id');
+        window.location.href="photo.php?photoId="+photoId;
 	});
 
 	

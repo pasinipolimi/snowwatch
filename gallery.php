@@ -1,4 +1,5 @@
 <?php require_once 'php/header.php'; ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!--[if IE]>
@@ -11,6 +12,8 @@
   
     <?php include 'php/dependencies/commonsCss.php'; ?>
     <?php include 'php/dependencies/filtersCss.php'; ?>
+    <?php include 'php/dependencies/commonsJS.php'; ?>
+    <?php include 'php/dependencies/filtersJS.php'; ?>
 
     <link rel="stylesheet" href="css/gallery.css">
 
@@ -21,27 +24,26 @@
 </head>
 <body>
 
-    <?php include 'php/navbar.php'; ?>
+    <?php include 'php/navbar_header.php'; ?>
+    <?php include 'php/navbar_menu_dark.php'; ?>
 
     <div class="container swcontainerleft" > 
         <div class="row">
-            <div class="col-md-9 well galleryContainer">
+            <div class="col-md-8 well galleryContainer">
                 <?php 
                     include 'php/slideshow.php'; 
                     echo generateSlideshow("links1", null);
                 ?>
+
             </div>
-            <div class="col-md-3">
-                <?php include 'php/filters2.php'; ?>
+            <div class="col-xs-offset-1 ">
+              <?php include 'php/filters.php'; ?>
             </div>
       </div>
 
     </div>
 
 
-
-  <?php include 'php/dependencies/commonsJS.php'; ?>
-  <?php include 'php/dependencies/filtersJS.php'; ?>
   
   
   <script src="js/gallery2.js"></script>
@@ -53,11 +55,11 @@
     })
     
     function reloadGallery(){
-      uploadGallery(200, computeFilterString(), "#links1", "");
+      uploadGallery(100, computeFilterString(), "#links1", "");
     }
   </script>
   
-  
+  <?php include 'php/footer.php'; ?>
 
 </body> 
 </html>

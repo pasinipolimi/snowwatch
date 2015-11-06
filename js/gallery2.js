@@ -2,10 +2,11 @@
 
 //$(function (slice, filters) {
 function uploadGallery( slice, filters, linksid, excluding ){
-    'use strict';
+ //   'use strict';
     // Load demo images from flickr:
+    
     $.ajax({
-        url: engineHost+'searchMedia?'+filters,
+        url: engineHost+'searchMedia?'+filters+'limitRows='+slice,
         dataType: 'jsonp'
     }).done(function (result) {
         var linksContainer = $(linksid).empty();
@@ -42,13 +43,8 @@ function uploadGallery( slice, filters, linksid, excluding ){
 
         
         $(".ancore").on("click", function() {
-            var imageModal= $(this).parents(".galleryContainer").find(".modal");
-            imageModal.find(".imagepreview").attr('src', $(this).children('img').attr('src_large')); 
-            imageModal.find(".mediaMoreButton").attr('photoId',$(this).children('img').attr('p_id') );
-            imageModal.modal("show");
-            imageModal.find(".mediaMoreButton").click(function(){
-                window.location.href="photo.php?photoId="+$(this).attr('photoId');
-            }) 
+            var photoId = $(this).children('img').attr('p_id');
+            window.location.href="photo.php?photoId="+photoId;
         }); 
     });
 

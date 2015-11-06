@@ -49,11 +49,9 @@ $(function(){
 
 
   //AUTHOR
-  $(".filters input[name='author-checkbox']").bootstrapSwitch();
-  $(".filters input[name='author-checkbox']").on('switchChange.bootstrapSwitch', function(event, state) {
-       reloadGallery(); 
+  $("#switch-onText").on('switchChange.bootstrapSwitch', function(event, state) {
+    reloadGallery(); 
   });
-
 
   //ALTITUDE
   $('#sliderAlt').noUiSlider({

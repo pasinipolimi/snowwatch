@@ -7,9 +7,9 @@ html, body {
         	height: 100%;
         	width: 100%;
         	position: absolute;
-        	margin-top: 50px;
+/*        	margin-top: 50px;
         	padding: 0px;
-        	z-index: 0;
+        	z-index: 0;*/
       	}
       	.bootstrap-switch .bootstrap-switch-handle-on, .bootstrap-switch .bootstrap-switch-handle-off, .bootstrap-switch .bootstrap-switch-label {
   height: auto;

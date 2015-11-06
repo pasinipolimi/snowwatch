@@ -59,100 +59,85 @@
 
   <body>
 
-    <?php include 'php/navbar.php'; ?>
-    
-    <div class="container swcontainerleft">
-      
-        <div class="row">
-            <div class="col-md-8">
-               
-                <div id="imgs-container" style="position:relative" >
-                    <img class="img-responsive" id="imageid" data-toggle="collapse"  data-target="#collapseInfo" aria-expanded="false" aria-controls="collapseExample">
-                    <div id="peaks-container"></div>
-                    <div id="snow-container"></div>
-                </div>
+  <?php include 'php/navbar_header.php'; ?>
+  <?php include 'php/navbar_menu_dark.php'; ?>
 
-                <div class="collapse" id="collapseInfo">
-                  <div class="well">
-                    <div id="collapseInfoDiv"></div>
-                  </div>
-                </div>
-                
+    <div class="container photo-container">
+        <div class="col-xs-8 sw-gallery">
 
+            <div id="imgs-container" style="position:relative" >
+                <img class="img-responsive img-thumbnail" id="imageid" data-toggle="collapse"  data-target="#collapseInfo" aria-expanded="false" aria-controls="collapseExample">
+                <div id="peaks-container"></div>
+                <div id="snow-container"></div>
+            </div>
 
-                <hr>
-                <div class="row">
-                    <div class="ratings col-md-8">
-                        <div id="rating_wrapper">
-                            <!-- inline width below is rating out of 100 -->
-                            <span class="full_stars" style="width: <?php echo $averageRating*100/5?>%;">
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </span>
-                            <span class="empty_stars" >
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                            </span>
-                        </div>
-                        <span><?php echo $averageRating." ".$i18n->translate("STARS");?></span>
+            <div class="row">
+                <h2 class="col-xs-9">Reviews</h2>
+                <div class="col-xs-3 sw-stars">
+                    <div id="rating_wrapper">
+                        <!-- inline width below is rating out of 100 -->
+                        <span class="full_stars" style="width: <?php echo $averageRating*100/5?>%;">
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                        </span>
+                        <span class="empty_stars" >
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        </span>
                     </div>
-                    <!--<div  class="well col-md-4 col-md-offset-3">
-                     <a class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
-                     <a class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i></a>
-                     <a class="btn btn-social-icon btn-flickr"><i class="fa fa-flickr"></i></a>
-                     <a class="btn btn-social-icon btn-instagram"><i class="fa fa-instagram"></i></a>
-                    </div>-->
+                    <span><?php echo $averageRating." ".$i18n->translate("STARS");?></span>
                 </div>
-                <!-- ******************************* REVIEW E COMMENTI ******************************* -->
-                <!-- ******************************* REVIEW E COMMENTI ******************************* -->
-                <div class="well" >
-                    <div class="row">
-                        <form method="post" action="add_review.php" name="addReview">
-                            <input type="hidden" name="photo_id" value="<?php echo $_GET["photoId"]?>"/>
-                            <div class="col-md-9">
-                                <div class="ratings col">
-                                    <input type="hidden" id="ratinginput" name="rating" value="0" />
-                                    <p>
-                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="1"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="2"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="3"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="4"></span>
-                                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="5"></span>
-                                    </p>
-                                </div>
-                                <textarea class="form-control" rows="3" id="commentinput" name="comment" 
-                                <?php if ($availableComments == false) { echo "disabled";}?>><?php if ($availableComments == false){echo $i18n->translate($unavailableMessage);}?></textarea>
-                            </div>
+            </div>
 
-                            <div class="text-right col-md-3 ">
-                                <input class="btn btn-success"
-                                 type="submit"  name="register" value="Leave a Review" id="postCommentBtn" 
-                                    <?php if ($availableComments == false) { echo "disabled";}?>/>
-                            </div>
-                        </form>
-                    </div>
-                    <hr>
+            <form method="post" action="add_review.php" name="addReview">
+                <input type="hidden" name="photo_id" value="<?php echo $_GET["photoId"]?>"/>
 
-                    <div id="commentsWell">
-                    <?php
-                        foreach ($reviewsList as $entry) {
-                            include 'php/review_entry.php';
-                        }                
-                    ?>
-                    </div>
-                </div>     
-            </div> <!-- fine colonna foto-->
+                <div class="ratings col">
+                    <input type="hidden" id="ratinginput" name="rating" value="0" />
+                    <p>
+                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="1"></span>
+                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="2"></span>
+                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="3"></span>
+                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="4"></span>
+                        <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="5"></span>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <textarea class="col-xs-12" rows="3" <?php if ($availableComments == false) { echo "disabled style='background-color:lightgray';";}?>></textarea>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <?php if ($availableComments == false) { echo "<div class='row-centered alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ".$i18n->translate($unavailableMessage)."</div>"; }?>
 
+                <div class="form-group">                            
+                    <button class="btn btn-lg btn-sw col-xs-3 col-xs-offset-9" <?php if ($availableComments == false) { echo "disabled";}?>>SUBMIT</button>
+                </div>
+            </form>
+            
+            <br>
+            <br>
+            <br>
+            <hr>
 
+            <div id="commentsWell">
 
+            <?php
+                foreach ($reviewsList as $entry) {
+                    include 'php/review_entry.php';
+                }                
+            ?>
+            </div>
+        </div>
 
-            <!-- ************************************************************** COLONNA DESTRA ************************************************************** -->
+        <!-- ************************************************************** COLONNA DESTRA ************************************************************** -->
             <!-- ************************************************************** COLONNA DESTRA ************************************************************** -->
             <div class="col-md-4">
                 <div class="well">
@@ -196,7 +181,7 @@
                                 <div  id="vFov"></div>
                                 <!--<span class="glyphicon" id= "gpsAlt"></span>--> 
                         </div>
-                        <div class="row inforow row-centered">
+                        <div class="row inforow">
                             <div class="col-centered">
                                 <span ><a class="btn btn-success btn-sm <?php if ($login->isUserLoggedIn() == false){ echo "disabled"; }?>"
                                     id="viewRender"><?php echo $i18n->translate("ALIGNMENT");?></a></span>
@@ -206,7 +191,7 @@
                             </div>        
                         </div>
                         <div class="row inforow row-centered">
-                            <div class="col-md-1 col-centered" id="peaksdiv">
+                            <div class="col-md-4 col-centered" id="peaksdiv">
                                 <div class="row">
                                     <?php echo $i18n->translate("SHOW_PEAKS");?>:
                                 </div>
@@ -214,22 +199,23 @@
                                     <input id="switch-peaks" type="checkbox"  disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
                                 </div>
                             </div>
-                            <div class="col-md-1 col-centered" id="snowmaskdiv">
+                             <div class="col-md-4 col-centered" id="snowmaskdiv">
                                 <div class="row">
                                     <?php echo $i18n->translate("SNOW_MASK");?>:
                                 </div>
                                 <div class="row">
                                     <input id="switch-snow" type="checkbox" disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
                                 </div>
-                            </div> 
+                            </div>
                         </div>             
                     </div>
                 </div>
+ 
 
-                <div class="well" style="display:none" id="samepeaksdiv">
+<!--                 <div class="well" style="display:none" id="samepeaksdiv">
                     <h4>Same Peaks</h4>
                     <div class="galleryContainer"><?php echo generateSlideshow("peakslinks", "small");?></div>
-                </div>
+                </div> -->
 
                 <div class="well" style="display:none" id="sameusrdiv">
                     <h4>Same User</h4>
@@ -246,9 +232,9 @@
                 
 
             </div> <!-- ******************************* FINE COLONNA DESTRA ******************************* -->
-        </div>
-    </div>
 
+
+    </div>
 
 <?php if ($login->isUserLoggedIn() == true) {?>
     <div class="modal fade" id="coordsModal">
@@ -286,11 +272,16 @@
 <?php }?>
 
     </div><!-- /.container -->
+
+  <?php include 'php/footer.php'; ?>
+
+
     <?php include 'php/dependencies/commonsJS.php'; ?>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiUJC2WiuszJkkHhoqH4nXHBs3skyr62o&libraries=geometry&sensor=false"></script>
     <script src="libs/bootstrap-switch.js"></script>
     <script src="js/gallery2.js"></script>
     <script src="js/photo.js"></script>
-    
+    <script>$("#gallerypage").addClass("active");</script>
+
   </body>
 </html>

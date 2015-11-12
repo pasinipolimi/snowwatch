@@ -51,7 +51,7 @@
 
     <?php } else{ ?>
     
-      <div class='row-centered alert alert-danger col-sm-4 col-sm-offset-4'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Log in or Sign up to enable this function.</div>
+      <div class='row-centered alert alert-danger col-sm-4 col-sm-offset-4'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <?php echo $i18n->translate("UPLOAD_LOG_IN_MESSAGE");?></div>
       <form id="form1" >
         <div class="col-sm-4 col-sm-offset-4">
           <input disabled id="input-21" type="file" disabled>
@@ -61,11 +61,11 @@
     <?php } ?>
 
         <div class="row col-xs-6 col-xs-offset-6">
-            <h2>Picture Requirements</h2>
+            <h2><?php echo $i18n->translate("PICTURE_REQUIREMENTS");?></h2>
             <ul>
-                <li>25 MB maximum</li>
-                <li>jpeg or png</li>
-                <li>no faces</li>
+                <li><?php echo $i18n->translate("MAXIMUM_FILE_SIZE");?></li>
+                <li><?php echo $i18n->translate("JPEG_OR_PNG");?></li>
+                <li><?php echo $i18n->translate("NO_FACES");?></li>
             </ul>
         </div>
       

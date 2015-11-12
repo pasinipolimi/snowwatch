@@ -45,7 +45,7 @@
     <div class="container sw-upload-content ">
       
         <div class="col-sm-offset-5">
-            <h1>Sign up</h1>
+            <h1><?php echo $i18n->translate("SIGN_UP_TITLE");?></h1>
         </div>
 
         <div class="col-sm-6 col-sm-offset-4">   
@@ -54,37 +54,37 @@
 
                 <div class="control-group">
                   <!-- Username -->
-                  <label class="control-label" for="login_input_username">Username</label>
+                  <label class="control-label" for="login_input_username"><?php echo $i18n->translate("USERNAME");?></label>
                   <div class="controls">
                     <input id="login_input_username" class="login_input input-xlarge" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required >
-                    <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+                    <p class="help-block"><?php echo $i18n->translate("USERNAME_HELP");?></p>
                   </div>
                 </div>
              
                 <div class="control-group">
                   <!-- E-mail -->
-                  <label class="control-label" for="login_input_email">E-mail</label>
+                  <label class="control-label" for="login_input_email"><?php echo $i18n->translate("EMAIL");?></label>
                   <div class="controls">
                     <input id="login_input_email" class="login_input input-xlarge" type="email" name="user_email" required />
-                    <p class="help-block">Please provide your E-mail</p>
+                    <p class="help-block"><?php echo $i18n->translate("EMAIL_HELP");?></p>
                   </div>
                 </div>
              
                 <div class="control-group">
                   <!-- Password-->
-                  <label class="control-label" for="login_input_password_new">Password</label>
+                  <label class="control-label" for="login_input_password_new"><?php echo $i18n->translate("PASSWORD");?></label>
                   <div class="controls">
                     <input id="login_input_password_new" class="login_input  input-xlarge" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
-                    <p class="help-block">Password should be at least 6 characters</p>
+                    <p class="help-block"><?php echo $i18n->translate("PASSWORD_HELP");?></p>
                   </div>
                 </div>
              
                 <div class="control-group">
                   <!-- Password -->
-                  <label class="control-label"  for="login_input_password_repeat">Password (Confirm)</label>
+                  <label class="control-label"  for="login_input_password_repeat"><?php echo $i18n->translate("PASSWORD_CONFIRM");?></label>
                   <div class="controls">
                     <input id="login_input_password_repeat" class="login_input  input-xlarge" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
-                    <p class="help-block">Please confirm password</p>
+                    <p class="help-block"><?php echo $i18n->translate("PASSWORD_CONFIRM_HELP");?></p>
                   </div>
                 </div>
              
@@ -104,7 +104,7 @@
                 <div class="control-group">
                   <!-- Button -->
                   <div class="controls">
-                    <input type="submit" name="register" class="btn btn-sw" value="SIGN UP" />
+                    <input type="submit" name="register" class="btn btn-sw" value="<?php echo $i18n->translate("SIGN_UP");?>" />
                   </div>
                 </div>
             </form>      

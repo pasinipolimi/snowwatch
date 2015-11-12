@@ -1,12 +1,12 @@
 <div class="col-xs-3 col-xs-offset-1 sw-filter-panel">
     
-    <h2>Filters</h5>
+    <h2><?php echo $i18n->translate("FILTERS");?></h5>
     <input type="hidden" id="swp_user_id" value="<?php if(isset($_SESSION['swp_user_id'])){echo $_SESSION['swp_user_id'];}?>"/>
 
     <div class="row row-centered" >
 
         <div class="col-xs-6">
-            <h5>Type</h5>
+            <h5><?php echo $i18n->translate("TYPE");?></h5>
             <div class="row inforow-less">
                 <div class="btn-group" id="selector" popover-trigger="show" popover-placement="left" popover="{{ 'Login or register here'}}">
                     <label type="button" class="btn btn-default active" id="checkp2"><span class="glyphicon glyphicon-camera"></span> </label>
@@ -16,9 +16,9 @@
         </div>
 
         <div class="col-xs-6">
-            <h5>Author</h5>
+            <h5><?php echo $i18n->translate("AUTHOR");?></h5>
             <div class="row inforow-less">
-                <input id="switch-onText" type="checkbox" checked="" data-label-width="30" data-handle-width="30" data-size="mini" data-on-text="All" data-off-text="Mine" name="author-checkbox"
+                <input id="switch-onText" type="checkbox" checked="" data-label-width="30" data-handle-width="30" data-size="mini" data-on-text="<?php echo $i18n->translate("ALL");?>" data-off-text="<?php echo $i18n->translate("MINE");?>" name="author-checkbox"
                     <?php if ($login->isUserLoggedIn() == false) {echo "readonly";}?>>
             </div>
         </div>
@@ -27,7 +27,7 @@
 
     <div class="row row-centered inforow" data-toggle="collapse" href="#swinfo">
         <h5>
-            Altitude (km)
+            <?php echo $i18n->translate("ALTITUDE_KM");?>
             <span class="glyphicon glyphicon-chevron-down pull-right" id="altspan" data-toggle="collapse" href="#sliderAltDiv" ></span>
         </h5>
     </div>
@@ -38,7 +38,7 @@
 
 
     <div class="row row-centered inforow" >
-        <h5>Peaks
+        <h5><?php echo $i18n->translate("PEAKS");?>
             <span class="glyphicon glyphicon-chevron-down pull-right" id="peaksspan" data-toggle="collapse" href="#peaksdiv" ></span>
         </h5>
     </div>    
@@ -48,7 +48,7 @@
 
     
     <div class="row row-centered inforow" >
-        <h5>Date
+        <h5><?php echo $i18n->translate("DATE");?>
             <span class="glyphicon glyphicon-chevron-down pull-right" id="datespan" data-toggle="collapse" href="#datediv" ></span>
         </h5>
     </div>
@@ -60,6 +60,3 @@
     </div>
 
 </div>
-
-
-

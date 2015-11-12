@@ -28,22 +28,22 @@
     <div class="container sw-homepage-content">
         <div class="row">
             <div class="col-xs-4">
-                <h2>Mission</h2>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elementum et erat facilisis consectetur. Aliquam erat volutpat. Maecenas sed mi felis. Ut ornare eros nunc, et sodales eros facilisis nec. Curabitur in fringilla neque, ut interdum neque. Nulla blandit at metus vel faucibus. Nulla ultricies felis non elit mattis, vitae tempus metus finibus. Etiam aliquam, elit ut ultrices ullamcorper, felis sem rhoncus nulla, at tincidunt augue eros sit amet ligula. Suspendisse vel ante porttitor leo gravida consequat. Nulla et eleifend tortor.
+                <h2><?php echo $i18n->translate("MISSION");?></h2>
+                <?php echo $i18n->translate("MISSION_DETAIL");?>
             </div>
             <div class="col-xs-4">
-                <h2>Goals</h2>
-                Phasellus justo turpis, efficitur ac tortor faucibus, euismod consectetur diam. Etiam pretium tortor nec urna scelerisque, vel efficitur justo venenatis. Nunc tincidunt auctor lacus, id tristique diam facilisis sed. Donec viverra tincidunt aliquet. Vestibulum mattis egestas rutrum. Nunc tincidunt convallis lorem, vitae dictum metus imperdiet non. Phasellus elit dolor, porta eu blandit et, dictum quis odio. 
+                <h2><?php echo $i18n->translate("GOALS");?></h2>
+                <?php echo $i18n->translate("GOALS_DETAIL");?>
             </div>
             <div class="col-xs-4">
                 <br>
                 <br>
-                <a class="btn btn-sw btn-lg col-xs-12" href="map.php">START EXPLORING</a>
+                <a class="btn btn-sw btn-lg col-xs-12" href="map.php"><?php echo $i18n->translate("START_EXPLORING");?></a>
                 <br>
                 <br>
                 <br>
                 <br>
-                <a class="btn btn-sw btn-lg col-xs-12" href="upload.php">UPLOAD A PHOTO</a>
+                <a class="btn btn-sw btn-lg col-xs-12" href="upload.php"><?php echo $i18n->translate("UPLOAD_A_PHOTO");?></a>
             </div>
         </div>
     </div>

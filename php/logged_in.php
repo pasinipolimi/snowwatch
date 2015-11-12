@@ -3,5 +3,5 @@
     <li class="dropdown-header text-center">
         <img class="sw-profile-header" src="dist/img/icon-profile.png">
     </li>
-    <li><a href="index.php?logout" class="row-centered">Log Out</a></li>
+    <li><a href="index.php?logout" class="row-centered"><?php echo $i18n->translate("LOG_OUT");?></a></li>
 </ul>

@@ -13,6 +13,9 @@
 
 <nav class="navbar sw-navbar-dark-top">
     <div class="container">
+        <span class="col-xs-2" style="position:absolute">
+            <a href="<?php echo $url ?>lang=en">EN</a> / <a href="<?php echo $url ?>lang=it">IT</a>
+        </span>
         <span class="sw-nav-logo">
             <a href="index.php"><img src="dist/img/logo.png"></a>
         </span>

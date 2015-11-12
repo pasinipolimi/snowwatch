@@ -197,23 +197,23 @@
                             </div>        
                         </div>
                         <div class="row inforow row-centered">
-                            <div class="col-md-4 col-centered" id="peaksdiv">
+                            <div class="col-md-4" id="peaksdiv">
                                 <div class="row">
                                     <?php echo $i18n->translate("SHOW_PEAKS");?>:
                                 </div>
-                                <div class="row">
+                                <div class="row col-md-1">
                                     <input id="switch-peaks" type="checkbox"  disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
                                 </div>
                             </div>
-                             <div class="col-md-4 col-centered" id="snowmaskdiv">
+                            <div class="col-md-4" id="snowmaskdiv">
                                 <div class="row">
                                     <?php echo $i18n->translate("SNOW_MASK");?>:
                                 </div>
-                                <div class="row">
+                                <div class="row col-md-1">
                                     <input id="switch-snow" type="checkbox" disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
                                 </div>
-                            </div>
-                        </div>             
+                            </div> 
+                        </div>     
                     </div>
                 </div>
  
@@ -242,7 +242,6 @@
 
     </div>
 
-<?php if ($login->isUserLoggedIn() == true) {?>
     <div class="modal fade" id="coordsModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -275,18 +274,17 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-<?php }?>
 
     </div><!-- /.container -->
 
   <?php include 'php/footer.php'; ?>
 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiUJC2WiuszJkkHhoqH4nXHBs3skyr62o&libraries=geometry&sensor=false"></script>
 
     <?php include 'php/dependencies/commonsJS.php'; ?>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiUJC2WiuszJkkHhoqH4nXHBs3skyr62o&libraries=geometry&sensor=false"></script>
+    <script src="js/photo.js"></script>
     <script src="libs/bootstrap-switch.js"></script>
     <script src="js/gallery2.js"></script>
-    <script src="js/photo.js"></script>
     <script>$("#gallerypage").addClass("active");</script>
 
   </body>

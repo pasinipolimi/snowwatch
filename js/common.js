@@ -46,9 +46,21 @@ function readQueryString(){
     return query_string;
 }
 
+function cleanPage(msg){
+	$('.swcontainer').html("<h4>Photo not exists</h4>");
+    console.log(msg );
+    $("#alert-msg").html(' <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> '+msg);
+    $("#alert-msg").addClass('alert-danger');
+    $("#alert-msg").show();
+    $('#alignment').hide();
+}
+
 function loadPhoto(queryString, callback){
 	var photo;
 	if(queryString.photoId){
+		$("#alert-msg").html(' <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Loading, please wait');
+		$("#alert-msg").show();
+
 	    $.ajax( {
 	        //url: 'https://cors-anywhere.herokuapp.com/'+engineHost+'searchMedia?ids[]='+queryString.photoId,
 	        url: engineHost+'searchMedia?detailLevel=full&ids[]='+queryString.photoId,
@@ -60,20 +72,21 @@ function loadPhoto(queryString, callback){
 	        	
 	            if(arguments[0].result[0]){
 	                photo=arguments[0].result[0];
+	                $("#alert-msg").hide();
+	                $('#alignment').show();
+	                $('warpingArea').show();
 	                callback( photo );
 	            } else {
-	                $('.swcontainer').html("<h4>Photo not exists</h4>");
-	                console.log("No photo for the specified id" );
+	            	cleanPage("No photo for the specified id");
+	                
+	                //alert("No photo for the specified id");
 	            }
 	        } else{
-	            //TODO: brutto che prima carica la pagina poi fa nullo
-	            $('.swcontainer').html("<h4>Photo not exists</h4>");
-	            console.log("Error reading photo detail: " + arguments[0].error);
+                cleanPage("Error reading photo");
 	        }
 	    })
 	    .fail(function(){
-	        $('.swcontainer').html("<h4>Photo not exists</h4>");
-	        console.log("Error reading photo detail: " + arguments);
+	        cleanPage("Error reading photo");
 	    });
 	} else {
 	    photo=decodeURIComponent(queryString.args);

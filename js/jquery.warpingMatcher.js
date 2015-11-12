@@ -239,13 +239,14 @@
 
             $("#ln14").click(function (e) {
             	e.preventDefault();
-                $('#zoom-container').hide();
-                $('#ln14').attr('disabled', true);
-                $('#ln17').attr('disabled', true);
-                $('#ln18').attr('disabled', true);
+                //$('.zoom-container').hide();
+                
+                //$('#ln14').attr('disabled', true);
+                //$('#ln17').attr('disabled', true);
+                //$('#ln18').attr('disabled', true);
 
                 plugin.generateCoordinates();
-                $(".successAlign").show();
+                $("#successAlign").removeClass("hidden");
             });
 
             $("#sliderZoom").on({
@@ -306,10 +307,14 @@
             });
 			
             $("#ln18").click(function (e) {
+                //reset
             	e.preventDefault();
                 plugin.warper.deleteAllPoints();
                 plugin.options.photoScaleFactor = plugin.options.originalPhotoScaleFactor;
                 plugin.warper.redraw();
+                $('.zoom-container').show();
+                $('.align-step-current').removeClass('align-step-current');
+                $('#step1').addClass('align-step-current');
                 $("#ln17").show();
                 $("#ln18").hide();
             });
@@ -360,8 +365,12 @@
 
             });
             $("#ln17").click(function (e) {
+                //pin
             	e.preventDefault();
                 plugin._goToStep(2);
+                $('.zoom-container').hide();
+                $('.align-step-current').removeClass('align-step-current');
+                $('#step2').addClass('align-step-current');
                 $("#ln18").show();
                 $("#ln17").hide();
             });
@@ -394,8 +403,10 @@
 
         _goToStep: function(step) {
             var plugin = this;
-            plugin.$el.removeClass("step1 step2 step3");
-            plugin.$el.addClass("step" + step);
+            $('.align-step-current').removeClass('align-step-current');
+            $('#step'+step).addClass('align-step-current');
+            //plugin.$el.removeClass("step1 step2 step3");
+            //plugin.$el.addClass("step" + step);
             switch (step){
                 case 1:
                     plugin._setDraggableStatus(true);

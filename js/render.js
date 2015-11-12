@@ -1,6 +1,10 @@
 
 
 $(function(){
+	$("#alert-msg").hide();
+	$('#alignment').hide();
+	$('warpingArea').hide();
+
     loadPhoto(readQueryString(),function (photo) {
         tzacco(photo);
     });
@@ -32,7 +36,7 @@ function tzacco (photo){
 
 	 $('#sliderZoom').noUiSlider_pips({
 	    mode: 'values',
-		values: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360],
+		values: [10, 20, 40,  60,  80,  100, 120,  140,  160,  180, 200,  220,  240,  260,  280,  300,  320,  340,  360],
 		density: 0.5
 	  });
 
@@ -55,6 +59,7 @@ function tzacco (photo){
 		window.location.href="photo.php?photoId="+photo.id;
 	});
 
+	
 
 	var instructionsContent = {
 				instructionsHTMLContent : "<div class='p'>"+

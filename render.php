@@ -13,6 +13,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">    
+    <?php include 'php/favicons.php'; ?>
 
     <title><?php echo $i18n->translate("PHOTO_DETAIL");?></title>
 
@@ -68,13 +69,21 @@
     
 
     <div class="container swcontainerleft" id="container" >
+    <!--<h2 class="col-md-12">Alignment</h2>-->
+    <div class="row alert" role="alert alert-warning" id="alert-msg">
+      
+      
+    </div>
     
-    <div class="row">
+    <div class="row" id="alignment" hidden>
+        
         <div class="col-md-12">
             <div id="main-content" role="main">
                 <div class="container_12">
-                    <div class="grid_12 alpha omega agrd_24">
-                        <div class="alert alert-dismissable fade in alert-success ">
+
+                    <div class="row">
+                        
+                        <div class="alert alert-dismissable fade in alert-notify " >
                                                         The image has been automatically aligned, in order to provide the best solution.
                             Decide wheather you are satisfied with this alignment or not.
                             In case you are not satisfied manually align the image, following the instructions below.
@@ -82,59 +91,60 @@
 
                         </div>
                     </div>
-                    <div class="clear"></div>
-                    <div class="grid_12 alpha omega agrd_24">
-                        <div class="alert alert-info ">
-                            1 - Drag the panorama background according to the mountain photo, matching a mountain peak with its related one on the render. <br>
-                            2 - Once they are perfectly aligned click on this peak.<br>
-                            3 - Match every other peak contained in the photo by clicking on the peak and dragging the selection to a valid peak on the render. ('Shift' + 'Click' to delete a peak).<br>
-                            4 - Once you have saved the alignment, press 'Continue' in order to see the peaks on the image.
-                            <br>
-                            <br> 
-                            <p>
-                                <a title="Pin Panorama" id="ln17" class="  btn btn-default" href="page8.do">
-                                Pin Panorama</a>
-                                <a title="Reset" id="ln18" class="  btn btn-default" href="page8.do" style="display: none;">
-                                Reset</a>
-                                <a title="Save Alignment" id="ln14" class="  btn btn-default" href="page8.do">
-                                Save Alignment</a>
 
-                                
-                            </p>
-                            
+                    <div class="row hidden" id="successAlign">
+                        <div class="alert alert-dismissable fade in alert-notify " >
+                            The Alignment Has Been Saved
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         </div>
                     </div>
-                    <div class="clear"></div>
-                    <div id="zoom-container">
-                        <div class="col-md-2 grid_8 alpha omega agrd_24" style="padding-bottom: 50px; "  id="sliderZoomDiv">
-                            <div class="alert alert-info fov" style="margin-bottom:5px; padding:3px; text-align: center;"> FOV </div>
-                            <button type="button" class="btn btn-default btn-xs" id="zoomMinBtn"><span class="glyphicon glyphicon-minus"></span></button>
-                            <input name="one" id="zoominput" style="width: 100px">
-                            <button type="button" class="btn btn-default btn-xs" id="zoomPluBtn"><span class="glyphicon glyphicon-plus"></span></button>
+                    
+                    <div class="row">
+                        <div class="col-md-3 align-step align-step-current" id="step1">
+                            <img src="dist/img/list1.png" class="img-responsive img-alignment">
+                            Drag the panorama background according to the mountain photo, matching a mountain peak with its related one on the render.
                         </div>
-                        <div class="col-md-10 grid_12 alpha omega agrd_24" style="padding-bottom: 50px; "  id="sliderZoomDiv">
+                        <div class="col-md-3 align-step" id="step2">
+                            <img src="dist/img/list2.png" class="img-responsive img-alignment">
+                            Once they are perfectly aligned press 'Pin panorama' and click on this peak
+                        </div>
+                        <div class="col-md-3 align-step" id="step3">
+                            <img src="dist/img/list3.png" class="img-responsive img-alignment">
+                            Match every other peak contained in the photo by clicking on the peak and dragging the selection to a valid peak on the render. ('Shift' + 'Click' to delete a peak).
+                        </div>
+                        <div class="col-md-3 align-step" id="step4">
+                            <img src="dist/img/list4.png" class="img-responsive img-alignment">
+                            Once you have saved the alignment, press 'Continue' in order to see the peaks on the image
+                        </div>
+                        
+                    </div>
+
+                    
+                    <div  class="row" style="margin-top:20px;">
+                        <div class="col-md-2"  >
+                            <div class="fov-div">
+                                <a title="Pin Panorama" id="ln17" class="btn btn-default btn-render" href="page8.do" >
+                                Pin Panorama</a>
+                                <a title="Reset" id="ln18" class="  btn btn-default btn-render" href="page8.do" style="display: none;">
+                                Reset</a>
+                                <a title="Save Alignment" id="ln14" class="  btn btn-default btn-render" href="page8.do">
+                                Continue</a>
+                            </div>    
+                        </div>
+                        <div class="col-md-2 zoom-container" >
+                            <div class=" fov-div fov-input"  id="sliderZoomDiv">  
+                            <div  style="color: #ffffff; margin-bottom:5px; padding:3px; text-align: center;"> FOV </div>
+                            <div  style="text-align: center;">
+                                <button type="button" class="btn btn-default btn-xs" id="zoomMinBtn"><span class="glyphicon glyphicon-minus"></span></button>
+                                <input ntype="text" class="form-control" ame="one" id="zoominput" style="width: 70px;  background-color : #999999; display: inline; border: 0px solid #ccc; color: #ffffff; text-align: center;">
+                                <button type="button" class="btn btn-default btn-xs" id="zoomPluBtn"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 grid_12 alpha omega agrd_24 zoom-container" style="padding-bottom: 50px; "  id="sliderZoomDiv">
                             <div id="sliderZoom" ></div>
                         </div>
                     </div>    
-                    <div class="grid_4 alpha omega agrd_24">
-                        <div class="panel panel-success successAlign" style="display: none;">
-                            <div class="panel-heading">
-                                <h2 class="panel-title">
-                                    The Alignment Has Been Saved
-                                </h2>
-                            </div>
-                            <div class="panel-body">
-                                <div class="EntryUnit ">
-                                    <input type="hidden" name="enu3Key" value="" id="enu3Key">
-                                    <input type="hidden" name="fld12" value="10" id="fld12">
-                                    <div class="form-group form-btn">
-                                        <button title="Continue" class="btn  btn-success " id="continueBtn" name="button:ln32" type="submit" value="Continue">
-                                        Continue</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="clear"></div>
                 </div>
             </div>

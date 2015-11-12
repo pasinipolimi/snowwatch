@@ -300,7 +300,7 @@ function showPxlInfo(event){
         }
         message+="</div>";
     } else {
-        message = "Downloading data, please wait";
+        message = "Move cursor over a peak to get its info";
     }
     
     $('#collapseInfoDiv').html(message);

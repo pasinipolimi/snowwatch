@@ -9,10 +9,10 @@
 }
 
 .label-message {
-	display:block;
   /*padding-left: 20px ;
   padding-right: 20px ;*/
-  white-space: normal;
+  display: block !important;
+  white-space: normal !important;
   font-size: 14 ! important;
 }
 

@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
     <meta charset="utf-8">
-    <title><?php echo $i18n->translate("IMAGE_GALLERY");?></title>
+    <title>SnowWatch Portal</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -14,6 +14,7 @@
     <?php include 'php/dependencies/filtersCss.php'; ?>
     <?php include 'php/dependencies/commonsJS.php'; ?>
     <?php include 'php/dependencies/filtersJS.php'; ?>
+    <?php require_once("php/client_translator.php"); ?>
 
     <link rel="stylesheet" href="css/gallery.css">
 
@@ -34,7 +35,6 @@
                     include 'php/slideshow.php'; 
                     echo generateSlideshow("links1", null);
                 ?>
-
             </div>
             <div class="col-xs-offset-1 ">
               <?php include 'php/filters.php'; ?>

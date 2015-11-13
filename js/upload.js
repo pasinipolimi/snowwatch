@@ -9,13 +9,13 @@ $(document).ready(function() {
       showCaption: false,
       previewFileType: "image",
       browseClass: "btn btn-sw",
-      browseLabel: " Pick Image",
+      browseLabel: " "+translate("PICK_IMAGE"),
       browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
       removeClass: "btn btn-danger",
-      removeLabel: " Delete",
+      removeLabel: " "+translate("DELETE"),
       removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
       uploadClass: "btn btn-info",
-      uploadLabel: " Upload",
+      uploadLabel: " "+translate("UPLOAD"),
       uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
     });
 

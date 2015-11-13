@@ -37,11 +37,12 @@
     <meta name="description" content="">
     <meta name="author" content="">    
 
-    <title><?php echo $i18n->translate("PHOTO_DETAIL");?></title>
+    <title>SnowWatch Portal</title>
 
-    
-    <?php include 'php/dependencies/commonsCss.php'; ?>
-
+    <?php 
+    include 'php/dependencies/commonsCss.php';
+    require_once("php/client_translator.php");
+    ?>
 
 <!--    <link href="remote/highlight.css" rel="stylesheet">-->
     <link href="css/bootstrap-switch.css" rel="stylesheet">

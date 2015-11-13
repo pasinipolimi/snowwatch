@@ -12,7 +12,7 @@ function uploadGallery( slice, filters, linksid, excluding ){
         var linksContainer = $(linksid).empty();
         var baseUrl;
         if(result.result.length==0){
-            linksContainer.append("No media found");
+            linksContainer.append(translate("NO_MEDIA"));
             return;
         }
         
@@ -37,7 +37,7 @@ function uploadGallery( slice, filters, linksid, excluding ){
         });
 
         if(linksContainer.children().size()==0){
-            linksContainer.append("No media found");
+            linksContainer.append(translate("NO_MEDIA"));
             return;
         }
 

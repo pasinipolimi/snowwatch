@@ -89,15 +89,9 @@
                 </div>
              
                <?php
-                    // show potential errors / feedback (from registration object)
-                    if (isset($registration)) {
-                        if ($registration->errors) {
-                            foreach ($registration->errors as $error) {
-                                // echo"<div class='col-sm-offset-4'>".$i18n->translate($error)."</div>";
-                                echo "<div class='row-centered alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ".$i18n->translate($error)."</div>";
-
-                            }
-                        }
+                    // show potential error / feedback (from registration object)
+                    if (isset($registration)&& $registration->error) {
+                        echo "<div class='row-centered alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ".$i18n->translate($registration->error)."</div>";
                     }
                 ?>
 

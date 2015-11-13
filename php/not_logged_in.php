@@ -15,11 +15,9 @@
             </div>
 
             <?php
-                // show potential errors / feedback (from login object)
-                if (isset($login) && $login->errors) {
-                    foreach ($login->errors as $error) {
-                        echo "<div id='login-error' class='row-centered alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> $error</div>";
-                    }
+                // show potential error / feedback (from login object)
+                if (isset($login) && $login->error) {
+                    echo "<div id='login-error' class='row-centered alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ". $i18n->translate($login->error) ."</div>";
                     echo "<script>$('#dropdown-menu').addClass('open');</script>";
                 }
             ?>
@@ -35,10 +33,4 @@
             <a class="btn btn-lg btn-sw" href="register.php"><?php echo $i18n->translate("SIGN_UP");?></a>
         </div>
     </li>
-</ul>        
- 
-
-
-
-
-
+</ul>

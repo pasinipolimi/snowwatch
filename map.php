@@ -17,6 +17,7 @@
   
     <?php include 'php/dependencies/commonsJS.php'; ?>
     <?php include 'php/dependencies/filtersJS.php'; ?>
+    <?php require_once("php/client_translator.php"); ?>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiUJC2WiuszJkkHhoqH4nXHBs3skyr62o&libraries=geometry&sensor=false"></script>
     <script src="js/worldMap.js"></script>

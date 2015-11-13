@@ -15,11 +15,14 @@
     <meta name="author" content="">    
     <?php include 'php/favicons.php'; ?>
 
-    <title><?php echo $i18n->translate("PHOTO_DETAIL");?></title>
+    <title>SnowWatch Portal</title>
 
 
-    <?php include 'php/dependencies/commonsCss.php'; ?>
-    <?php include 'php/dependencies/commonsJS.php'; ?>
+    <?php 
+        include 'php/dependencies/commonsCss.php';
+        include 'php/dependencies/commonsJS.php'; 
+        require_once("php/client_translator.php");
+    ?>
 
     <link  href="css/jquery.nouislider.min.css" rel="stylesheet">
    <link  href="css/jquery.nouislider.pips.css" rel="stylesheet">
@@ -84,17 +87,14 @@
                     <div class="row">
                         
                         <div class="alert alert-dismissable fade in alert-notify " >
-                                                        The image has been automatically aligned, in order to provide the best solution.
-                            Decide wheather you are satisfied with this alignment or not.
-                            In case you are not satisfied manually align the image, following the instructions below.
+                            <?php echo $i18n->translate("ALIGNMENT_MESSAGE");?>                       
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-
                         </div>
                     </div>
 
                     <div class="row hidden" id="successAlign">
                         <div class="alert alert-dismissable fade in alert-notify " >
-                            The Alignment Has Been Saved
+                            <?php echo $i18n->translate("ALIGNMENT_SAVED");?>
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         </div>
                     </div>
@@ -102,19 +102,19 @@
                     <div class="row">
                         <div class="col-md-3 align-step align-step-current" id="step1">
                             <img src="dist/img/list1.png" class="img-responsive img-alignment">
-                            Drag the panorama background according to the mountain photo, matching a mountain peak with its related one on the render.
+                            <?php echo $i18n->translate("ALIGNMENT_STEP_1");?>
                         </div>
                         <div class="col-md-3 align-step" id="step2">
                             <img src="dist/img/list2.png" class="img-responsive img-alignment">
-                            Once they are perfectly aligned press 'Pin panorama' and click on this peak
+                            <?php echo $i18n->translate("ALIGNMENT_STEP_2");?>
                         </div>
                         <div class="col-md-3 align-step" id="step3">
                             <img src="dist/img/list3.png" class="img-responsive img-alignment">
-                            Match every other peak contained in the photo by clicking on the peak and dragging the selection to a valid peak on the render. ('Shift' + 'Click' to delete a peak).
+                            <?php echo $i18n->translate("ALIGNMENT_STEP_3");?>
                         </div>
                         <div class="col-md-3 align-step" id="step4">
                             <img src="dist/img/list4.png" class="img-responsive img-alignment">
-                            Once you have saved the alignment, press 'Continue' in order to see the peaks on the image
+                            <?php echo $i18n->translate("ALIGNMENT_STEP_4");?>
                         </div>
                         
                     </div>
@@ -123,12 +123,12 @@
                     <div  class="row" style="margin-top:20px;">
                         <div class="col-md-2"  >
                             <div class="fov-div">
-                                <a title="Pin Panorama" id="ln17" class="btn btn-default btn-render" href="page8.do" >
-                                Pin Panorama</a>
-                                <a title="Reset" id="ln18" class="  btn btn-default btn-render" href="page8.do" style="display: none;">
-                                Reset</a>
-                                <a title="Save Alignment" id="ln14" class="  btn btn-default btn-render" href="page8.do">
-                                Continue</a>
+                                <a title="<?php echo $i18n->translate("PIN_PANORAMA");?>" id="ln17" class="btn btn-default btn-render" href="page8.do" >
+                                <?php echo $i18n->translate("PIN_PANORAMA");?></a>
+                                <a title="<?php echo $i18n->translate("RESET");?>" id="ln18" class="  btn btn-default btn-render" href="page8.do" style="display: none;">
+                                <?php echo $i18n->translate("RESET");?></a>
+                                <a title="<?php echo $i18n->translate("CONTINUE");?>" id="ln14" class="  btn btn-default btn-render" href="page8.do">
+                                <?php echo $i18n->translate("CONTINUE");?></a>
                             </div>    
                         </div>
                         <div class="col-md-2 zoom-container" >

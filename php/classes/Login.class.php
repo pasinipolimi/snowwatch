@@ -7,12 +7,8 @@ require_once("libs/password_compatibility_library.php");
  * Class login
  * handles the user's login and logout process
  */
-class Login
-{
-    /**
-     * @var array Collection of error messages
-     */
-    public $errors = array();
+class Login {
+    public $error = NULL;
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,
@@ -38,9 +34,9 @@ class Login
     {
         // check login form contents
         if (empty($_POST['user_name'])) {
-            $this->errors[] = "Username field was empty.";
+            $this->error = "USERNAME_EMPTY";
         } elseif (empty($_POST['user_password'])) {
-            $this->errors[] = "Password field was empty.";
+            $this->error = "PASSWORD_EMPTY";
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
             $user_name = $_POST['user_name'];
             $password = $_POST['user_password'];
@@ -73,10 +69,10 @@ class Login
                 $_SESSION['user_login_status'] = 1;
 
             } else {
-                $this->errors[] = "Wrong password. Try again.";
+                $this->error = "WRONG_PASSWORD";
             }
         } else {
-            $this->errors[] = "This user does not exist.";
+            $this->error = "USER_NOT_EXIST";
         }
     }
 

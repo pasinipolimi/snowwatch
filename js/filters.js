@@ -1,94 +1,127 @@
-
+var isResizing = false,
+  lastDownX = 0;
 
 $(function(){
 //init
 
-  //TYPE
-  $('.btn-group').button();
-  // $('.btn-group label').eq(0).button('toggle').find(':checkbox').prop('checked');
-  // $('.btn-group label').eq(1).button('toggle').find(':checkbox').prop('checked');
-  // $('#checkwc2lbl').button('toggle').find(':checkbox').prop('checked');
-  // $('#checkp2lbl').button('toggle').find(':checkbox').prop('checked');
 
-  // $('#checkwc2lbl').button('toggle').find(':checkbox').prop('checked', false);
-  //$('#checkwc2lbl').button('toggle').find(':checkbox').removeProp('checked');
-  //$('#checkp2lbl').button('toggle').find(':checkbox').removeProp('checked');
-
-
-  // $(".btn-group").change(function (e) {
-    
-  //   if( $('#checkwc2').is(':checked')|| $('#checkp2').is(':checked') ) {
-  //     reloadGallery(); 
-  //   } else {
-  //     debugger;
-  //     //both unchecked: notify
-  //     alert("Select at least one type"); 
-  //     $(e.target).parent().button('toggle').find(':checkbox').toggleClass('checked');
-  //   } 
-  // });
-
-
-  $('#selector label').click(function() {
-    
-    if( $(this).hasClass('active')){
-      //lo voglio disattivare
-        if( $($(this).siblings()[0]).hasClass('active') ){
-          //the other one is active
-          $(this).removeClass('active');
-          reloadGallery(); 
-        } else {
-          alert("Select at least one type"); 
-          
-        }
+  $('.selector').click(function() {
+    if($(this).hasClass('sw-active')){
+      $(this).removeClass('sw-active');
+      $(this).addClass('sw-inactive');
     } else {
-      $(this).addClass('active');
-      reloadGallery(); 
+      $(this).removeClass('sw-inactive');
+      $(this).addClass('sw-active');
     }
-    
-});
-
-
-  //AUTHOR
-  $("#switch-onText").on('switchChange.bootstrapSwitch', function(event, state) {
-    reloadGallery(); 
+    reloadGallery();
   });
 
-  //ALTITUDE
-  $('#sliderAlt').noUiSlider({
-    start: [ 2.0, 4.0 ],
-    step: 0.5, //di quanto posso saltare
-    //margin: 20,
-    connect: true,
 
-    format: wNumb({
-      mark: ',',
-      decimals: 1
-    }),
+
+  $('.switcher').click(function() {
+    if($(this).hasClass('sw-active')){
+      $(this).removeClass('sw-active');
+      $(this).addClass('sw-inactive');
+      $(this).siblings('.switcher').addClass('sw-active');
+      $(this).siblings('.switcher').removeClass('sw-inactive');
+    } else {
+      $(this).removeClass('sw-inactive');
+      $(this).addClass('sw-active');
+      $(this).siblings('.switcher').addClass('sw-inactive');
+      $(this).siblings('.switcher').removeClass('sw-active');
+    }
+    reloadGallery();
+  });
+
+
+
   
-    behaviour: 'tap-drag',
-
-    range: {
-      'min': 0,
-      'max': 5.0
+  $('#alt_btn').on('click', function (e) {
+    if($(this).hasClass('alt_btn_off')){
+      //accendo
+      $(this).removeClass('alt_btn_off');
+      $(this).addClass('alt_btn_on');
+      $(this).parent().removeClass('alt_lb_off');
+      $('#right_panel').addClass('right_panel_on');
+      $('#right_panel').removeClass('right_panel_off');
+    } else {
+      //spengo
+      $(this).removeClass('alt_btn_on');
+      $(this).addClass('alt_btn_off');
+      $(this).parent().addClass('alt_lb_off');
+      $('#right_panel').removeClass('right_panel_on');
+      $('#right_panel').addClass('right_panel_off');
     }
+
+    reloadGallery();
+  });
+  
+
+
+  var container = $('#containeralt'),
+      right = $('#right_panel'),
+      handle = $('#drag');
+      top_right = $('#top_panel'),
+      top_handle = $('#top_drag');
+      number_down= $('#number_down');
+      number_up= $('#number_up');
+
+  handle.on('mousedown', function (e) {
+      isResizing = true;
+      isResizing_down = true;
+      lastDownX = e.clientX;
   });
 
-  $('#sliderAlt').noUiSlider_pips({
-    mode: 'steps',
-    density: 0.1, //ogni quanto metto un trattino
-    format: wNumb({
-      mark: ',',
-      decimals: 1
-    }),
+  top_handle.on('mousedown', function (e) {
+      isResizing = true;
+      isResizing_top = true;
+      lastDownX = e.clientX;
   });
 
-  $("#sliderAlt").on({
-    set: function(){
-      reloadGallery();
-    }
+  $(document).on('mousemove', function (e) {
+      // we don't want to do anything if we aren't resizing.
+      if (!isResizing) 
+          return;
+      
+      var offsetRight = container.width() - (e.clientX - container.offset().left);
+
+      var offLeft= 240-offsetRight;
+      var x= (offLeft*5)/240;
+      if(isResizing_down){
+        if(offsetRight-top_right.width()<20){
+      return;
+        }
+        if(offsetRight>240){
+      return;
+        }
+        right.css('width', offsetRight);
+        right.css('background-position', offsetRight);  
+        number_down.css('right', offsetRight-8);
+        number_down.html(x.toFixed(1));
+      } else {
+        if(right.width()-offsetRight<20){
+      return;
+        }
+        if(offsetRight<0){
+      return;
+        }
+        top_right.css('width', offsetRight);
+        top_right.css('background-position', offsetRight);  
+        number_up.css('right', offsetRight-8);
+        number_up.html(x.toFixed(1));
+      }
+      
+  }).on('mouseup', function (e) {
+      // stop resizing
+      if(isResizing){
+        reloadGallery();
+        isResizing = false;
+        isResizing_down=false;
+        isResizing_top=false;
+      }
+      
   });
 
-  //$('#sliderAlt').attr('disabled', 'disabled');
 
   
   
@@ -131,7 +164,7 @@ $(function(){
             firstDay: 1
         }
     }, function(start, end, label) {
-      debugger;
+      
         $('#daterange span').html((start._isValid ? start.format('MMM D, YYYY'):"") +" - "+ ( end._isValid ? end.format('MMM D, YYYY'):""));
         reloadGallery();
     });
@@ -178,6 +211,7 @@ function getPeaks(){
               dataType: 'jsonp',
               success: function(result) {
                   if(result.status == "OK"){
+                    
                       sessionStorage.peaks = JSON.stringify(result.result);
                       pl=result.result;
                       configPeaksTag(pl);
@@ -198,70 +232,30 @@ function getPeaks(){
 function configPeaksTag(list){
     
 
-    var listMap = {};
-    list.forEach( function( item ) {
-      listMap[ item.name ] = item;
-    } );
+    var peaks = new Bloodhound({
+      datumTokenizer: function(d) {
+              return Bloodhound.tokenizers.whitespace(d.name);
+          },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: list
+    });
 
-    var ItemManager = $.fn.textext.ItemManager;
-    var myIM = ItemManager;
 
-    myIM.prototype.itemToString = function( item ) {
-      return item.name;
-    };
-    myIM.prototype.stringToItem = function( string ) {
-      return listMap[ string ];
-    }
-    myIM.prototype.itemContains = function( item, needle ) {
-      return this.itemToString(item).toLowerCase().indexOf(needle.toLowerCase()) > -1;
-    }
-    $('#peaksTA')
-        .textext( {
-          plugins : 'autocomplete tags filter',
-          itemManager: myIM,
-          ext: {
-              tags: {
-                  addTags: function(tags)
-                  { 
-                    
-                    $.fn.textext.TextExtTags.prototype.addTags.apply(this, arguments);
-                    if(tags!=null){
-                        reloadGallery();
-                    }
-                      
-                  },
-                  removeTag: function(tag)
-                  {
-                      
-                      $.fn.textext.TextExtTags.prototype.removeTag.apply(this, arguments);
-                      reloadGallery();
 
-                  },
-                  isTagAllowed : function(tag) {
-                      if(typeof tag == 'undefined'){
-                          return false;
-                      }
-                      var tags = JSON.parse($('#peaksTA').textext()[0].hiddenInput().val());
-                      for (var i = 0; i < tags.length; i++) {
-                          var t= tags[i];
-                          if(t.name==tag.name){
-                              return false;
-                          }
-                      }
-                      return $.fn.textext.TextExtTags.prototype.isTagAllowed.apply(this, arguments);;
-                  }  
+    $('#tag2').tagsinput({
+      itemValue: 'id',
+      itemText: 'name',
+      typeaheadjs: {
+        name: 'peaks',
+        displayKey: 'name',
+        source: peaks.ttAdapter()
+      }
+    });
 
-              }
-          }
-        })
-          .bind('getSuggestions', function(e, data){
-                textext = $(e.target).textext()[0],
-                query = (data ? data.query : '') || '';
-                $(this).trigger(
-                    'setSuggestions',
-                    { result : textext.itemManager().filter(list, query) }
-                );
-          });
+    $('#tag2').on('itemAdded', function(event) {
+      
+      reloadGallery();
+    });
 
 }
 
@@ -273,47 +267,50 @@ function computeFilterString(){
   
   var filters="";
   
+  if($('#checkwc2').hasClass('sw-inactive') && $('#checkp2').hasClass('sw-inactive')){
+    //both inactive, return;
+    return "empty";
+  }
 
-  if(!($('#checkwc2').hasClass('active') && $('#checkp2').hasClass('active'))){
-    if($('#checkwc2').hasClass('active')){
+  if(!($('#checkwc2').hasClass('sw-active') && $('#checkp2').hasClass('sw-active'))){
+    if($('#checkwc2').hasClass('sw-active')){
       filters+="types[]=W&";
     }
-    if($('#checkp2').hasClass('active')){
+    if($('#checkp2').hasClass('sw-active')){
       filters+="types[]=P&";
     }
   }
 
   
 
-  if($('#datediv').hasClass('in')){
+  /*if($('#datediv').hasClass('in')){
       if($('#daterange').data('daterangepicker').startDate._isValid){
         filters+="tsShotMin="+  $('#daterange').data('daterangepicker').startDate.toISOString()+"&";  
       }
       if($('#daterange').data('daterangepicker').endDate._isValid){
       filters+="tsShotMax=" + $('#daterange').data('daterangepicker').endDate.toISOString()+"&";  
       }  
-  }
+  }*/
 
   
-  
-  if(! $('#switch-onText').bootstrapSwitch('state')){
-   var userId= $("#swp_user_id").val();
-   filters+="userIds[]="+userId+"&";   
+  if($('#mine').hasClass('sw-active')){
+    var userId= $("#swp_user_id").val();
+    filters+="userIds[]="+userId+"&"; 
   }
 
-  if($('#sliderAltDiv').hasClass('in')){
-      filters+="gpsAltMin="+parseFloat($("#sliderAlt").val()[0])*1000+"&";   
-      filters+="gpsAltMax="+parseFloat($("#sliderAlt").val()[1])*1000+"&";
+
+  if($('#alt_btn').hasClass('alt_btn_on')){
+      filters+="gpsAltMin="+parseFloat($("#number_down").html())*1000+"&";   
+      filters+="gpsAltMax="+parseFloat($("#number_up").html())*1000+"&";
   }
   
 
-  if($('#peaksdiv').hasClass('in')){
-     var tags = JSON.parse($('#peaksTA').textext()[0].hiddenInput().val());
-        for (var i = 0; i < tags.length; i++) {
-            var t= tags[i];
-            filters+="peakIds[]="+t.id+"&";   
-        }
+  var tags = $("#tag2").tagsinput('items');
+  for (var i = 0; i < tags.length; i++) {
+      var t= tags[i];
+      filters+="peakIds[]="+t.id+"&";   
   }
+
  
   
   

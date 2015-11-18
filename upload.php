@@ -5,16 +5,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <?php include 'php/favicons.php'; ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SnowWatch Portal</title>
     
     <?php 
     include 'php/dependencies/commonsCss.php';
-    include 'php/dependencies/commonsJS.php';
     require_once("php/client_translator.php");
     ?>
     
+    <script>
+        var lang="<?php echo $i18n->getAppliedLang();?>"
+    </script>
+
+    <?php 
+    include 'php/dependencies/commonsJS.php';
+    ?>
+
     <link href="libs/kartik-v-bootstrap-fileinput-9f4e4ef/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <script src="libs/kartik-v-bootstrap-fileinput-9f4e4ef/js/fileinput.min.js" type="text/javascript"></script>
     <script src="js/upload.js"></script>
@@ -33,6 +41,8 @@
     <?php include 'php/navbar_header.php'; ?>
     <?php include 'php/navbar_menu_dark.php'; ?>
     
+    
+
     <img class="sw-upload-jumbotron" src="dist/img/background-upload.png">
     
     <div class="container sw-upload-content">
@@ -78,6 +88,8 @@
     <br>
 
     <?php include 'php/footer.php'; ?>
+
+    
 
   </body>
 </html>

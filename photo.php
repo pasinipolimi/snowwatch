@@ -30,6 +30,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <?php include 'php/favicons.php'; ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +42,12 @@
 
     
     <?php include 'php/dependencies/commonsCss.php'; ?>
+
+    <script>
+        var lang="<?php echo $i18n->getAppliedLang();?>"
+    </script>
+
+    
 
 
 <!--    <link href="remote/highlight.css" rel="stylesheet">-->
@@ -55,6 +62,11 @@
     <?php 
         include 'php/slideshow.php'; 
     ?>
+
+    <meta property="og:image" content="/dist/img/SW_doc_logo.jpg"/>
+    <meta property="og:image:secure_url" content="/dist/img/SW_doc_logo.jpg" />
+    <link rel="image_src" href="/dist/img/SW_doc_logo.jpg"/>
+
   </head>
 
   <body>
@@ -62,7 +74,7 @@
   <?php include 'php/navbar_header.php'; ?>
   <?php include 'php/navbar_menu_dark.php'; ?>
 
-    <div class="container photo-container">
+    <div class="container photo-container" style="padding-top: 0px; !important">
         <div class="col-xs-8 sw-gallery">
 
             <div id="imgs-container" style="position:relative" >
@@ -77,8 +89,14 @@
               </div>
             </div>
 
+            <div class="row" style="padding-top:10px">
+                
+                    <?php include 'php/social-share.php'; ?>
+                
+            </div>
+
             <div class="row">
-                <h2 class="col-xs-9">Reviews</h2>
+                <h2 class="col-xs-9"><?php echo $i18n->translate("REVIEWS");?></h2>
                 <div class="col-xs-3 sw-stars">
                     <div id="rating_wrapper">
                         <!-- inline width below is rating out of 100 -->
@@ -114,17 +132,13 @@
                         <span class="glyphicon glyphicon-star-empty <?php if($availableComments == true){echo "rating";}?>" id ="5"></span>
                     </p>
                 </div>
-                <div class="form-group">
-                    <textarea class="col-xs-12" rows="3" id="commentinput" name="comment" <?php if ($availableComments == false) { echo "disabled style='background-color:lightgray';";}?>></textarea>
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <?php if ($availableComments == false) { echo "<div class='row-centered alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ".$i18n->translate($unavailableMessage)."</div>"; }?>
-
-                <div class="form-group">                            
-                    <button class="btn btn-lg btn-sw col-xs-3 col-xs-offset-9" <?php if ($availableComments == false) { echo "disabled";}?>>SUBMIT</button>
+                <div <?php if ($availableComments == false) {
+                 echo "data-toggle='popover' data-trigger='hover'  data-placement='bottom' data-content=\"<span class='glyphicon glyphicon-alert' style='color:#20BEE3'> ".$i18n->translate("REVIEW_ALREADY_WRITTEN")."</span>\"";}?>>
+                    <div class="row form-group">
+                        <textarea class="col-xs-12" rows="3" id="commentinput" name="comment" <?php if ($availableComments == false) { echo "disabled style='background-color:lightgray' ";}?> ></textarea>
+                    
+                        <button class="btn btn-lg btn-sw col-xs-3 col-xs-offset-9" style="margin-top: 10px;" <?php if ($availableComments == false) { echo "disabled ";}?>><?php echo $i18n->translate("SUBMIT");?></button>
+                    </div>
                 </div>
             </form>
             
@@ -145,94 +159,101 @@
 
         <!-- ************************************************************** COLONNA DESTRA ************************************************************** -->
             <!-- ************************************************************** COLONNA DESTRA ************************************************************** -->
-            <div class="col-md-4">
-                <div class="well">
-                    <h4>Photo Info 
-                    <button class="DetailsBtn SeeMore btn btn-default btn-xs pull-right" data-toggle="collapse" href="#photoinfo"><?php echo $i18n->translate("SEE_MORE");?></button></h4>
-                    <div id= "photoinfo" class="collapse myinfobox centered">
-                        <div class="row" id="date"></div>
-                        <div class="row inforow-less-top" id="author"></div>
-                        <div class="row inforow-less-top"  id="source"></div>
-                        <div class="row inforow-less-top" id="type"></div>
-                        <div class="row inforow"><div id="mapInfo" ><img id="mapImg" class="img-responsive centered" ></div></div>
-                    </div>
-                </div>
+            <div class="col-xs-4">
+                <div class="well well-photo-detail">
 
-                <div class="well">
-                    <h4>SnowWatch
-                        <button class="DetailsBtn btn btn-default btn-xs pull-right" data-toggle="collapse" href="#swinfo"><?php echo $i18n->translate("SEE_LESS");?></button>
-                    </h4>
-                    <div id="swinfo"  class="collapse in myinfobox" >
+                    <h2 style="margin-top:-10px"> <?php echo $i18n->translate("SHOW");?> </h2>
+                    <div   class="myinfobox" >
                         <div class="row" >
                             <h4><span class="label label-default label-message" id="statusMessage"></span></h4>
                         </div>
-                        <div class="row inforow" id="latlngInfo">
+                        
+                        <div class="row inforow" style="padding-bottom:15px;">
+                            <div class="col col-md-3" style="text-align:center">
+                                <img src="dist/img/icon-mountains.png">    
+                                <p style="    margin-top: -10px;"><?php echo $i18n->translate("SHOW_PEAKS");?></p>
+                            </div>
+                            <div class="col col-md-3" style="margin-left: -20px;     padding-top: 20px; margin-right: 10px;
+">
+                                <input id="switch-peaks" type="checkbox"  disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
+                            </div>
+                            <div class="col col-md-3" style="text-align:center">
+                                    <img src="dist/img/icon-snow.png" >
+                                    <p style="    margin-top: -10px;"><?php echo $i18n->translate("SNOW_MASK");?></p>
+                            </div>
+                            <div class="col col-md-3" style="margin-left: -20px;    padding-top: 20px;" data-toggle="popover" data-trigger="hover"  data-placement="bottom" data-content='<span class="glyphicon glyphicon-warning-sign" style="color:#F29A1A"> <?php echo $i18n->translate("COMING");?></span>'>
+                                    <input id="switch-snow" type="checkbox" disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
+                            </div>
+                            
+                        </div>  
+                        <div class="row inforow">
+
+                                <a class="btn btn-default btn-render <?php if ($login->isUserLoggedIn() == false){ echo "disabled"; }?>"
+                                    id="viewRender">
+                                     <img src="dist/img/button-allignment.png" class="btn-img">
+                                    <?php echo $i18n->translate("ALIGNMENT");?>
+
+                                </a>
+
+                                <a  id="validateBtn" class="  btn btn-default btn-render disabled">
+                                <img src="dist/img/button-validate.png" class="btn-img">
+                                <?php echo $i18n->translate("VALIDATE");?></a>
+                            
+                        </div>
+
+                    </div>
+
+                    
+                
+                    <h2><?php echo $i18n->translate("LOCALIZATION");?><button type="button" class="btn btn-coord-danger
+                                        <?php if ($login->isUserLoggedIn() == false) { echo "disabled";}?>"
+                                        data-toggle="modal" data-target="#coordsModal" id="latlngInputBtn" style="background:none;">
+                                        <span class="glyphicon glyphicon-pencil" style="color:#F56A63"></span>
+                                          <?php echo $i18n->translate("INSERT_COORDINATES");?>
+                                        </button></h2> 
+                    <div id="swinfo"  class="myinfobox" >
+                        <div class="row inforow"><div id="mapInfo" ><img id="mapImg" class="img-responsive centered" ></div></div>
+                        <!--<div class="row inforow" id="latlngInfo">
                                 <div  id="lat"></div>
                                 <div  id="lng"></div>
-                        </div>
-                        <div class="row" id="latlngInput">
-                                <div class="row inforow">
-                                    <div class="col-md-3">
+                        </div>-->
+                    </div>
 
-                                        <button type="button" class="btn btn-sm
-                                        <?php if ($login->isUserLoggedIn() == false) { echo "disabled";}?>"
-                                        data-toggle="modal" data-target="#coordsModal" id="latlngInputBtn">
-                                          <?php echo $i18n->translate("INSERT_COORDINATES");?>
-                                        </button>
-                                    </div>                
-                                </div>
-                        </div>
+                    <h2> <?php echo $i18n->translate("FOV");?> </h2>
+                    <div   class="myinfobox" >
                         <div class="row inforow" >
                                 <div id="hFov"></div>
                                 <div  id="vFov"></div>
                                 <!--<span class="glyphicon" id= "gpsAlt"></span>--> 
                         </div>
-                        <div class="row inforow">
-                            <div class="col-centered">
-                                <span ><a class="btn btn-success btn-sm <?php if ($login->isUserLoggedIn() == false){ echo "disabled"; }?>"
-                                    id="viewRender"><?php echo $i18n->translate("ALIGNMENT");?></a></span>
-                            </div>        
-                            <div class="col-centered">
-                                <span ><a class="btn btn-success btn-sm disabled" id="validateBtn"><?php echo $i18n->translate("VALIDATE");?></a></span>
-                            </div>        
-                        </div>
-                        <div class="row inforow row-centered">
-                            <div class="col-md-4" id="peaksdiv">
-                                <div class="row">
-                                    <?php echo $i18n->translate("SHOW_PEAKS");?>:
-                                </div>
-                                <div class="row col-md-1">
-                                    <input id="switch-peaks" type="checkbox"  disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
-                                </div>
-                            </div>
-                            <div class="col-md-4" id="snowmaskdiv">
-                                <div class="row">
-                                    <?php echo $i18n->translate("SNOW_MASK");?>:
-                                </div>
-                                <div class="row col-md-1">
-                                    <input id="switch-snow" type="checkbox" disabled data-size="mini" data-on-text="ON" data-off-text="OFF" >
-                                </div>
-                            </div> 
-                        </div>     
+
                     </div>
+                    
+
+                    <h2 >Info </h2>
+                    <div id= "photoinfo" class="myinfobox" >
+                        <div class="row" id="date"></div>
+                        <div class="row inforow-less-top" id="author"></div>
+                        <div class="row inforow-less-top"  id="source"></div>
+                        <div class="row inforow-less-top" id="type"></div>
+                        
+                    </div>
+
                 </div>
  
 
-<!--                 <div class="well" style="display:none" id="samepeaksdiv">
-                    <h4>Same Peaks</h4>
+                <div class="well well-photo-detail" style="display:none" id="samepeaksdiv">
+                    <h2 style="margin-top:-10px"><?php echo $i18n->translate("SMPEAK");?></h2>
                     <div class="galleryContainer"><?php echo generateSlideshow("peakslinks", "small");?></div>
-                </div> -->
-
-                <div class="well" style="display:none" id="sameusrdiv">
-                    <h4>Same User</h4>
+                </div> 
+                <div class="well well-photo-detail" style="display:none" id="sameusrdiv">
+                    <h2 style="margin-top:-10px"><?php echo $i18n->translate("SMUSR");?></h2>
                     <div class="galleryContainer"><?php echo generateSlideshow("userlinks", "small"); ?></div>
                 </div>
 
-                <div class="well" id="nearbydiv" style="display:none">
-                    <h4>Near-by</h4>
-                    <p>
-                       <div class="galleryContainer"> <?php echo generateSlideshow("nearlinks", "small"); ?></div>
-                    </p>
+                <div class="well well-photo-detail" id="nearbydiv" style="display:none">
+                    <h2 style="margin-top:-10px"><?php echo $i18n->translate("NEAR");?></h2>
+                    <div class="galleryContainer"> <?php echo generateSlideshow("nearlinks", "small"); ?></div>
                 </div>
 
                 
@@ -242,35 +263,36 @@
 
     </div>
 
-    <div class="modal fade" id="coordsModal">
+    <div class="modal fade " id="coordsModal">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><?php echo $i18n->translate("ADD_COORDINATES");?></h4>
+          <div class="modal-header well-photo-detail" style="border-bottom: 0px; padding-bottom:5px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span  style="    color: #fff;">&times;</span></button>
+            <h4><?php echo $i18n->translate("ADD_COORDINATES");?></h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body well-photo-detail">
                 <div class="row">
                     <div class="col-md-8">
                         <div id="mapCanvas" style="width: 370px; height: 300px"></div>
                     </div>
                     <div class="col-md-4">
                             <div class="form-group">
-                                <label for="lat">Latitude</label>
+                                <label for="lat"><?php echo $i18n->translate("Latitude");?></label>
                                 <input type="text" class="form-control" id="latInput" placeholder="Latitude">
                             </div>
                             <div class="form-group">
-                                <label for="lng">Longitude</label>
+                                <label for="lng"><?php echo $i18n->translate("Longitude");?></label>
                                 <input type="text" class="form-control" id="lngInput" placeholder="Longitude">
+                                
+                            </div>
+                            <div class="form-group" style="padding-top:20px">
+                                <button type="button" class="btn btn-primary btn-sw" data-dismiss="modal" id="saveCoordsBtn"><?php echo $i18n->translate("SAVE_CHANGES");?></button>
                             </div>
                         
                     </div>
               </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $i18n->translate("CLOSE");?></button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveCoordsBtn"><?php echo $i18n->translate("SAVE_CHANGES");?></button>
-          </div>
+          
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

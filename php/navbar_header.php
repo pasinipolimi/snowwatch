@@ -15,9 +15,9 @@
 
 <nav class="navbar sw-navbar-dark-top">
     <div class="container">
-        <span class="col-xs-2" style="position:absolute">
-            <a href="<?php echo $url ?>lang=en">EN</a> / <a href="<?php echo $url ?>lang=it">IT</a>
-        </span>
+        <div class="nav navbar-nav navbar-left row-centered col-xs-2" style="padding-top: 15px; padding-bottom: 15px color:#1FBEE3 !important">
+            <a class="sw-label" href="<?php echo $url ?>lang=en">EN</a> / <a class="sw-label" href="<?php echo $url ?>lang=it">IT</a>
+        </div>
         <span class="sw-nav-logo">
             <a href="index.php"><img src="dist/img/logo.png"></a>
         </span>

@@ -2,41 +2,49 @@
     "status": {
         "INVALID": {
             "message": "The photo has been classified as invalid, no analysis performed.",
+            "messageit": "La foto è stata classificata come invalida, nessuna analisi effettuata.",
             "step": -1,
             "level":"danger"
         },
         "JUST_CREATED": {
             "message": "The photo has been successfully saved, Snowwatch is starting the processing",
+            "messageit": "La foto è stata salvata con successo. Snowwatch sta iniziando il processamento.",
             "step": 0,
             "level":"danger"
         },
         "NO_GPS": {
             "message": "Unable to perform the alignment: Unable to automatically find the GPS coordinates. Please manually provide the GPS coordinates. ",
+            "messageit": "Impossibile calcolare l'allineamento: impossibile trovare le coordinate GPS. Aggiungi manualmente le coordinate.",
             "step": 0,
             "level":"danger"
         },
         "WAITING_RENDER": {
             "message": "GPS found, waiting for render",
+            "messageit": "GPS trovato, in attesa del render.",
             "step": 1,
             "level":"info"
         },
         "NO_FOV":{
             "message": "Unable to compute the fov, please align manually.",
+            "messageit": "Impossibile calcolare il FOV, allinea manualmente.",
             "step": 2,
             "level":"danger"
         },
         "WAITING_ALIGNMENT": {
             "message": "Snowwatch is performing the alignment, please wait, or align manually.",
+            "messageit": "Snowwatch sta calcolando l'allienamento, attenti o allinea manualmente.",
             "step": 3,
             "level":"info"
         },
         "NO_ALIGNMENT": {
             "message": "Snowwatch couldnt align the photo, please align manually.",
+            "messageit": "Snowwatch non è riuscito a calcolare l'allienamento, allinea manualmente.",
             "step": 4,
             "level":"danger"
         },
         "ALIGNED": {
             "message": "Snowwatch found an alignment, have a look.",
+            "messageit": "Snowwatch ha trovato un allineamento, dai un'occhiata.",
             "step": 5,
             "level":"success"
         }

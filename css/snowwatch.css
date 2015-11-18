@@ -1,3 +1,25 @@
+
+.tag.label.label-info span{
+ 
+float: left;
+    position: absolute;
+    left: 0px;
+}
+
+
+.tag.label.label-info:before {
+  content: "\00a0\00a0\00a0\00a0";
+}
+
+.tag.label.label-info{
+max-width: 180px !important;
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .swcontainerleft {
   padding: 40px 15px;
   text-align: left;
@@ -6,6 +28,11 @@
 .swcontainer {
   padding: 40px 15px;
   text-align: center;
+}
+
+.sw-filter-panel, .sw-homepage-content {
+    
+    min-width: 270px;
 }
 
 .label-message {
@@ -28,17 +55,136 @@
 	padding-right: 15px ;
 }
 
+.alt_btn_off{
+  color:#999999 !important;
+}
+
+.alt_btn_on{
+  color:#20BEE3 !important;
+}
+
+.alt_lb_off{
+  color:#999999 !important;  
+}
+
 .centered{
     float: none;
     margin: 0 auto;
 }
 
 .inforow {
-	padding-top: 20px;
+	/*padding-top: 20px;*/
+}
+
+.me-filter.sw-active .filter-icons{
+  background-image:url(../dist/img/button-me-active.png);
+}
+
+.me-filter.sw-inactive .filter-icons{
+  background-image:url(../dist/img/button-me-inactive.png);
+}
+
+.all-filter.sw-active .filter-icons{
+  background-image:url(../dist/img/button-all-active.png);
+}
+
+.all-filter.sw-inactive .filter-icons{
+  background-image:url(../dist/img/button-all-inactive.png);
+}
+
+.camera.sw-active .filter-icons{
+  background-image:url(../dist/img/button-camera-active.png);
+}
+
+.camera.sw-inactive .filter-icons{
+  background-image:url(../dist/img/button-camera-inactive.png);
+}
+
+
+.webcam.sw-active .filter-icons{
+  background-image:url(../dist/img/button-video-active.png);
+}
+
+.webcam.sw-inactive .filter-icons{
+  background-image:url(../dist/img/button-video-inactive.png);
+}
+
+
+
+.sw-inactive .filter-icons{
+  color:#999999
+}
+.sw-active .filter-icons{
+  color:#20BEE3
+}
+
+.filter-icon-label{
+  margin-top: -5px;
+}
+
+
+.btn-sw {
+    background-color: #20BEE3 !important;
+    border-color: #20BEE3 !important;
+    color: #F0F1F5 !important;
+    font-family: Roboto !important;
+    font-weight: 500 !important;
+}
+
+.filter-icons{
+  height: 40px;
+  background-size: contain;
+  background-repeat:no-repeat;
+  background-position: center;
+  padding-top: 35px;
+}
+
+.me-filter .filter-icons{
+  width: 30px;
+}
+
+.all-filter .filter-icons{
+  width: 30px;
+}
+
+.camera .filter-icons{
+  width: 60px;
+}
+
+.webcam .filter-icons{
+  width: 60px;
+}
+
+.webcam .filter-icons{
+  width: 60px;
 }
 
 .inforow-less-top {
   padding-top: 2px;
+}
+
+.btn-coord-primary{
+  color:#999999 !important;
+}
+
+.btn-img{
+  width: 15%;
+  padding-right: 20px;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-sw {
+  color: #fff;
+  background: #20BEE3;
+}
+
+
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-sw-off {
+  color: #fff;
+  background: #999999;
+}
+
+.btn-coord-danger{
+  color: #F56A63 !important;
 }
 
 .inforow-less {
@@ -93,6 +239,13 @@
     border-color: #1FBEE3 !important;
 }
 
+.well-photo-detail{
+  background-color: #2F2F37 !important;
+  color:#ffffff;
+  min-width: 270px;
+}
+
+
 .fov-input{
   border-radius: 0px !important;
   background-color: #1FBEE3 !important;
@@ -117,6 +270,14 @@
 
 }
 
+.sw-label{
+  color:#1FBEE3 !important
+}
+
+span.twitter-typeahead{
+    display: inline !important;
+}
+
 .col-centered-no-fix {
     display:inline-block;
     float:none;
@@ -133,6 +294,10 @@
 
 .row-centered {
     text-align:center;
+}
+
+.bootstrap-tagsinput{
+  width: 195px !important;
 }
 
 .peaksonphoto{
@@ -196,4 +361,147 @@
 
 .photo-container{
   padding-top: 40px;
+}
+
+
+
+.noUi-handle:before{
+  display:none ;
+      background: rgba(232, 231, 230, 0) !important;
+}
+
+.noUi-handle:after{
+  display:none ;
+      background: rgba(232, 231, 230, 0) !important;
+}
+
+.noUi-dragable{
+  height: 50px;
+}
+
+.noUi-background{
+ height: 50px;
+ background: #999999 !important;
+}
+
+.noUi-handle {
+    width: 4px !important;
+    height: 65px !important;
+    left: -2px !important;
+    top: 0px !important;
+    z-index:1000 !important;
+    background:#20BEE3 !important;
+    box-shadow:none !important;
+    border:none !important;
+  }
+
+  .noUi-connect {
+    background: #1FBEE3 !important;
+  }
+
+.noUi-base{
+    background-color: #999999;
+    padding-bottom: 50px;
+  }
+
+
+
+.noUi-marker-normal {
+    
+    background: rgba(185, 31, 31, 0.0) !important;
+}
+
+
+.noUi-pips-horizontal{
+    padding: 0px !important;
+    margin-top: 34px;
+    }
+
+
+
+
+
+
+/*--------------------------------------------ALTITUDE-------------------------------------------------------*/
+
+#containeralt {
+    width: 240px;
+    height: 70px;
+    background-image: url(../images/mountain_mask5.png);
+    
+}
+
+.right_panel_off{
+  background-image: url(../images/mountain_mask5.png) !important;
+}
+
+.right_panel_on{
+  background-image: url(../images/mountain_mask3.png) !important;
+}
+ 
+
+#right_panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 192px;
+    color:#fff;
+    background-position: -48px;
+    border-left-style: solid !important;
+    border-left-color: white !important;
+    border-width: 2px !important;
+    border-radius: 0px !important;
+}
+ #drag {
+    position: absolute;
+    left: -4px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    cursor: ew-resize;
+}
+
+
+#top_panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    color:#fff;
+    background-image: url(../images/mountain_mask5.png);
+    background-position: -192px;
+    border-left-style: solid !important;
+    border-left-color: white !important;
+    border-width: 2px !important;
+    border-radius: 0px !important;
+}
+ #top_drag {
+    position: absolute;
+    left: -4px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    cursor: ew-resize;
+}
+
+.sup{
+  position:relative;
+  width: 240px;
+}
+
+#number_down{
+  position: absolute;
+  top:70px;
+  right:186px;
+  color:#fff;
+}
+
+#number_up{
+  position: absolute;
+  top:70px;
+  right:40px;
+  color:#fff;
+
 }

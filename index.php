@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <?php include 'php/favicons.php'; ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SnowWatch Portal</title>
@@ -27,11 +28,11 @@
     <img class="sw-homepage-jumbotron" src="dist/img/background-home.jpg">
     <div class="container sw-homepage-content">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="font-family: Roboto;">
                 <h2><?php echo $i18n->translate("MISSION");?></h2>
                 <?php echo $i18n->translate("MISSION_DETAIL");?>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="font-family: Roboto;">
                 <h2><?php echo $i18n->translate("GOALS");?></h2>
                 <?php echo $i18n->translate("GOALS_DETAIL");?>
             </div>

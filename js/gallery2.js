@@ -4,6 +4,11 @@
 function uploadGallery( slice, filters, linksid, excluding ){
  //   'use strict';
     // Load demo images from flickr:
+    if(filters=="empty"){
+        var linksContainer = $(linksid).empty();
+        linksContainer.append(nomedia);
+        return;
+    }
     
     $.ajax({
         url: engineHost+'searchMedia?'+filters+'limitRows='+slice,
@@ -12,7 +17,7 @@ function uploadGallery( slice, filters, linksid, excluding ){
         var linksContainer = $(linksid).empty();
         var baseUrl;
         if(result.result.length==0){
-            linksContainer.append("No media found");
+            linksContainer.append(nomedia);
             return;
         }
         
@@ -37,7 +42,7 @@ function uploadGallery( slice, filters, linksid, excluding ){
         });
 
         if(linksContainer.children().size()==0){
-            linksContainer.append("No media found");
+            linksContainer.append(nomedia);
             return;
         }
 

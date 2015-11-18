@@ -6,6 +6,20 @@ var detailsReady;
 var marker;
 
 $(function(){
+    $('.fb-share-button').data('href', window.location.href );
+    
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.5&appId=243305025873183";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+    $('[data-toggle="popover"]').popover({ html : true});
+
 	loadPhoto(readQueryString(), function (photo) {
         photoGlb=photo;
         fillPhoto(photo);
@@ -39,18 +53,17 @@ function fillPhoto(photoDetails) {
 	    $('#latlngInfo').hide();
 	    $('#nearbydiv').hide();
         
-        $('#latlngInputBtn').addClass("btn-danger");
-        $('#latlngInputBtn').removeClass("btn-primary");
-        $('#latlngInputBtn').html("Insert Coordinates");
+        
+        $('#latlngInputBtn').html('<span class="glyphicon glyphicon-pencil" style="color:#F56A63"></span>Add');
         initializeMap(photoDetails.id);
 	}
 
 
 
 	if(photoDetails.auxTsShot){
-      $("#date").html ("<b>Taken on </b>"+ new Date(photoDetails.auxTsShot).toLocaleString());  
+      $("#date").html ("<b>"+Taken+" </b>"+ new Date(photoDetails.auxTsShot).toLocaleString());  
     } else {
-      $("#date").html ( " Shot date undefined");  
+      $("#date").html ( TakenUnd);  
     };
     if(photoDetails.gpsAlt){
       $("#gpsAlt").html ("GPS Altitude: "+ photoDetails.gpsAlt);
@@ -59,29 +72,33 @@ function fillPhoto(photoDetails) {
     if(photoDetails.vFov){
       $("#vFov").html ( "vFov: "+ photoDetails.vFov);
     } else {
-      $("#vFov").html ( "vFov: undefined ");
+      $("#vFov").html ( "vFov: "+udf);
     }
     if(photoDetails.hFov){
       $("#hFov").html ( "hFov: "+ photoDetails.hFov);
     } else {
-      $("#hFov").html ( "hFov: undefined ");
+      $("#hFov").html ( "hFov: "+udf);
     }
 
 
     //source
-    $("#source").html(  " <b>Source: </b>"+photoDetails.source);
+    $("#source").html(  " <b>"+Source+": </b>"+photoDetails.source);
 
     if(photoDetails.type=='P'){
-        $("#type").html ( " <b>Type: </b>Photo");
+        $("#type").html ( " <b>"+Type+": </b>"+Photo);
     } else {
-        $("#type").html (' <b>Type: </b> WebCam <button type="button" class="btn btn-xs btn-info btn-lg">'+
-        '<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Start Slideshow</button>');
+        $("#type").html (' <b>'+Type+': </b> WebCam');
     }
 
 	var status=photoDetails.status;
     $.getJSON("config/status.json", function( data ) {
         $('#statusMessage').addClass("label-"+data.status[status].level);
-        $('#statusMessage').append(data.status[status].message);
+        if(lang=="it"){
+            $('#statusMessage').append(data.status[status].messageit);
+        } else {
+            $('#statusMessage').append(data.status[status].message);
+        }
+        
     });
 
 	if(photoDetails.auxRender){
@@ -97,6 +114,8 @@ function fillPhoto(photoDetails) {
     
     if(photoDetails.auxAlignment){
         $('#switch-peaks').bootstrapSwitch('disabled', false).bootstrapSwitch('state', false)    ;
+        $("#switch-peaks").bootstrapSwitch('onColor', 'sw');
+        $("#switch-peaks").bootstrapSwitch('offColor', 'sw-off');
 
         $('#imageid').on('load', function() {
 			drawPeaks(photoDetails);
@@ -111,9 +130,9 @@ function fillPhoto(photoDetails) {
 		});
 
     
-    //Same peaks     
-    //    uploadGallery(8, calcPeaksFilter(photoDetails), "#peakslinks", [photoDetails.id]);
-    //    $('#samepeaksdiv').show();
+        //Same peaks     
+        uploadGallery(8, calcPeaksFilter(photoDetails), "#peakslinks", [photoDetails.id]);
+        $('#samepeaksdiv').show();
 
         
         if(photoDetails.auxAlignment.auxFileAbsUrlDepthMask){
@@ -126,6 +145,8 @@ function fillPhoto(photoDetails) {
 
     } else{
     	$("#switch-peaks").bootstrapSwitch();
+        $("#switch-peaks").bootstrapSwitch('onColor', 'sw');
+        $("#switch-peaks").bootstrapSwitch('offColor', 'sw-off');
     }
 
     if(photoDetails.auxFileAbsUrlSnowMask){
@@ -141,17 +162,21 @@ function fillPhoto(photoDetails) {
 				$('#snow-container').hide();
 			}
 		});
+        $("#switch-peaks").bootstrapSwitch('onColor', 'sw');
+        $("#switch-peaks").bootstrapSwitch('offColor', 'sw-off');
         downloadGeneralMask(photoDetails.auxFileAbsUrlSnowMask, 'snowCtx');
     } else {
     	$("#switch-snow").bootstrapSwitch();
+        $("#switch-peaks").bootstrapSwitch('onColor', 'sw');
+        $("#switch-peaks").bootstrapSwitch('offColor', 'sw-off');
     }
     
 
 
     if(photoDetails.userId.indexOf('SWP')>=0){
-        $("#author").html(" <b>By: </b> Jon Snow");
+        $("#author").html(" <b>"+By+": </b> Jon Snow");
     } else {
-        $("#author").html(" <b>By: </b>"+ photoDetails.userId);
+        $("#author").html(" <b>"+By+": </b>"+ photoDetails.userId);
     }
     // var oid= photoDetails.userId.replace('SWP','');
     // $.ajax({
@@ -162,7 +187,7 @@ function fillPhoto(photoDetails) {
     //     }//end success function
     // }); 
     
-    uploadGallery(8, "userIds[]="+photoDetails.userId, "#userlinks", [photoDetails.id]);
+    uploadGallery(8, "userIds[]="+photoDetails.userId+"&", "#userlinks", [photoDetails.id]);
     $('#sameusrdiv').show();
 
 };
@@ -201,7 +226,7 @@ function updateCoords(photoId, lat, lng){
     var gpsLatMax=lat+delta;
     var gpsLngMin=lng-delta;
     var gpsLngMax=lng+delta; 
-    uploadGallery(8, "gpsLatMin="+gpsLatMin+"&gpsLatMax="+gpsLatMax+"&gpsLngMin="+gpsLngMin+"&gpsLngMax="+gpsLngMax, "#nearlinks"); 
+    uploadGallery(8, "gpsLatMin="+gpsLatMin+"&gpsLatMax="+gpsLatMax+"&gpsLngMin="+gpsLngMin+"&gpsLngMax="+gpsLngMax+"&", "#nearlinks"); 
     $('#nearbydiv').show();
 
     $('#mapInfo').show();
@@ -209,9 +234,9 @@ function updateCoords(photoId, lat, lng){
 
     initializeMap(photoId, lat, lng);
     
-    $('#latlngInputBtn').html("Change Coordinates");
-    $('#latlngInputBtn').removeClass("btn-danger");
-    $('#latlngInputBtn').addClass("btn-primary");
+    $('#latlngInputBtn').html('<span class="glyphicon glyphicon-pencil" style="color:#999999"></span> '+Edit);
+    $('#latlngInputBtn').removeClass("btn-coord-danger");
+    $('#latlngInputBtn').addClass("btn-coord-primary");
 
 
 }
@@ -267,15 +292,18 @@ function downloadGeneralMask(urlMask, ctxName){
 
 
 function enableCollapse(imgId){    
-    $('#imgs-container').on( 'mouseenter', function (){$('#collapseInfo').show();} );
-    $('#imgs-container').on( 'mouseleave', function (){$('#collapseInfo').hide();} );
-//    $('#imgs-container').on( 'mousemove', showPxlInfo );
+    //$('#imgs-container').on( 'mouseenter', function (){$('#collapseInfo').show();} );
+    //$('#imgs-container').on( 'mouseleave', function (){$('#collapseInfo').hide();} );
+    //$('#imgs-container').on( 'mousemove', showPxlInfo );
+    $('#peaks-container').on( 'mouseenter', function (){$('#collapseInfo').show();} );
+    $('#peaks-container').on( 'mouseleave', function (){$('#collapseInfo').hide();} );
     $('#peaks-container').on( 'mousemove', 'img', showPeakInfo );  
 }
 
 
 
 function showPxlInfo(event){
+    
     var message;
     if(detailsReady){
         startImageX = $("#imageid").offset().left;
@@ -426,10 +454,11 @@ function initializeMap(photoId, lat, lng) {
 
     google.maps.event.addListener(map, 'click', function(event) {
             marker.setPosition(event.latLng);
+            
     //        marker.setVisible(true);
             //google.maps.event.clearListeners(map, 'click');
-            $("#latInput").val( event.latLng.A);
-            $("#lngInput").val( event.latLng.F);
+            $("#latInput").val( event.latLng.lat());
+            $("#lngInput").val( event.latLng.lng());
     }); 
 
     marker.setMap(map);
@@ -468,7 +497,11 @@ function initializeMap(photoId, lat, lng) {
                     updateCoords(photoId,marker.getPosition().lat(), marker.getPosition().lng());
                     $.getJSON("config/status.json", function( data ) {
                         $('#statusMessage').removeClass().addClass('label').addClass('label-message').addClass("label-"+data.status['WAITING_RENDER'].level);
-                        $('#statusMessage').html(data.status['WAITING_RENDER'].message);
+                        if(lang=="it"){
+                            $('#statusMessage').html(data.status['WAITING_RENDER'].messageit);
+                        } else {
+                            $('#statusMessage').html(data.status['WAITING_RENDER'].message);
+                        }
                     });
 
                 },
@@ -497,16 +530,3 @@ function placeMarker(location, map) {
     });
 } 
 
-
-// ********************************************************************************** HIDE-SHOW PHOTO DETAILS ******************************************************************************************
-
-$('.DetailsBtn').click(function(){
-    
-        var $this = $(this);
-        $this.toggleClass('SeeMore');
-        if($this.hasClass('SeeMore')){
-            $this.text('See More');         
-        } else {
-            $this.text('See Less');
-        }
-    });

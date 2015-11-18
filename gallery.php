@@ -6,12 +6,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
     <meta charset="utf-8">
+    <?php include 'php/favicons.php'; ?>
     <title><?php echo $i18n->translate("IMAGE_GALLERY");?></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     <?php include 'php/dependencies/commonsCss.php'; ?>
-    <?php include 'php/dependencies/filtersCss.php'; ?>
+    <?php include 'php/dependencies/filtersCSS.php'; ?>
+
+    <script>
+        var lang="<?php echo $i18n->getAppliedLang();?>"
+    </script>
+
     <?php include 'php/dependencies/commonsJS.php'; ?>
     <?php include 'php/dependencies/filtersJS.php'; ?>
 
@@ -29,16 +35,16 @@
 
     <div class="container swcontainerleft" > 
         <div class="row">
-            <div class="col-md-8 well galleryContainer">
+            <div class="col-md-9 galleryContainer">
                 <?php 
                     include 'php/slideshow.php'; 
                     echo generateSlideshow("links1", null);
                 ?>
 
             </div>
-            <div class="col-xs-offset-1 ">
+            
               <?php include 'php/filters.php'; ?>
-            </div>
+            
       </div>
 
     </div>

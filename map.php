@@ -12,8 +12,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:500,700" rel="stylesheet" type="text/css">
       
     <?php include 'php/dependencies/commonsCss.php'; ?>
-    <?php include 'php/dependencies/filtersCss.php'; ?>
+    <?php include 'php/dependencies/filtersCSS.php'; ?>
     <link href="css/mappadada.css" rel="stylesheet">
+
+    <script>
+        var lang="<?php echo $i18n->getAppliedLang();?>"
+    </script>
+
   
     <?php include 'php/dependencies/commonsJS.php'; ?>
     <?php include 'php/dependencies/filtersJS.php'; ?>
@@ -56,7 +61,7 @@
     
   <!--<div class="starter-template">
  <div class="container starter-template2" > -->
-    <div class="container container-fixed-top-padding">
+    <div class="container container-fixed-top-padding" style="margin-top: 0px; !important">
       <div class="row">
         <div class="col-md-12">
           <div id="main-content" role="main">
@@ -66,7 +71,7 @@
         </div>
       </div>
     </div>    
-    <div id="map-canvas"></div>
+    <div id="map-canvas" style="margin-top: -51px; !important"></div>
 
     <div class="container swcontainerleft" > 
       <div class="row">

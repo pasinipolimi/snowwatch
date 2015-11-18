@@ -11,6 +11,13 @@
  */
 define("DB_HOST", "localhost");
 define("DB_NAME", "sw_portal");
-define("DB_USER", "webuser");
-define("DB_PASS", "polimiwebuser");
-define("DB_PORT", "3306");
+define("DB_USER", "root");
+define("DB_PASS", "root");
+define("DB_PORT", "8889");
+
+/* SERVER CONFIGS
+define("DB_HOST", "localhost");
+define("DB_NAME", "snowwatch");
+define("DB_USER", "snowwatch");
+define("DB_PASS", "PVtx1DP7WG");
+define("DB_PORT", "3306");*/

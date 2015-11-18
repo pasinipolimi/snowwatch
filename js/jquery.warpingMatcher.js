@@ -359,7 +359,7 @@
                         }
                         plugin._automoveThumb();
                         plugin.$el.css("visibility","visible");
-                    },200);
+                    },500);
             	});
             	plugin.$photo.attr("src",plugin.options.urlImage);
 
@@ -432,6 +432,9 @@
 			canvas.width = imageWidth;
 			canvas.height = imageHeight;
 			ctx.fillStyle = "rgba(0, 0, 200, 0)";
+            if(!image.complete){
+                alert("error loading render, try again later");
+            }
             console.log(image,imageWidth,imageHeight,image.complete);
 			ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
 			

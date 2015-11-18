@@ -108,6 +108,10 @@ function reloadMap(){
 		
 		mapClasses.classes.push({'classId': 'big', 'imgDimDeg': bigDegree, 'imgDimPx': 120});
 		mapClasses.classes.push({'classId': 'small', 'imgDimDeg': smallDegree, 'imgDimPx': 50});
+		if(filters=="empty"){
+			return;
+
+		}
 		
 		$.ajax({ 
     			type: 'get',
@@ -143,7 +147,7 @@ function createMarker(photo, coordinates)
 	var content='<div class="thumbdiv_'+photo.auxMapClassId+'" style="background-image: url('+photo.auxMapClassThumbnailAbsUrl+
           		')" src_large="'+retrieveUrl(photo, 2)+'" p_id="'+photo.id+'"/>';
 	if(photo.type=="W"){
-		content+='<div class="wcicon wcicon_'+photo.auxMapClassId+'" style="background-image: url(images/videoicon.png)"></div>';
+		content+='<div class="wcicon wcicon_'+photo.auxMapClassId+'" style="background-image: url(dist/img/button-video-active.png)"></div>';
 	}
 	content+='</div>';
 

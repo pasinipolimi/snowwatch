@@ -58,7 +58,7 @@ function cleanPage(msg){
 function loadPhoto(queryString, callback){
 	var photo;
 	if(queryString.photoId){
-		$("#alert-msg").html(' <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Loading, please wait');
+		$("#alert-msg").html(' <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> '+loading);
 		$("#alert-msg").show();
 
 	    $.ajax( {
@@ -77,16 +77,16 @@ function loadPhoto(queryString, callback){
 	                $('warpingArea').show();
 	                callback( photo );
 	            } else {
-	            	cleanPage("No photo for the specified id");
+	            	cleanPage(no_photo);
 	                
 	                //alert("No photo for the specified id");
 	            }
 	        } else{
-                cleanPage("Error reading photo");
+                cleanPage(errorpho);
 	        }
 	    })
 	    .fail(function(){
-	        cleanPage("Error reading photo");
+	        cleanPage(errorpho);
 	    });
 	} else {
 	    photo=decodeURIComponent(queryString.args);
